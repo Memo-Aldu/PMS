@@ -1,3 +1,4 @@
+# UC1: Register Staff Member
 Feature: Staff Member attempts to register to the HMS system to identify himself/herself to the system
   to use its functionalities.
 
