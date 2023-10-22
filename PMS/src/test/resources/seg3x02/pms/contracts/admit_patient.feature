@@ -7,8 +7,19 @@ Feature: Admit patient
     And Charge Nurse chooses to admit a Patient
     And HMS-PMS asks for room and bed number
     And Charge Nurse enters room 
-    And the Charge Nurse enters the bed number or alternatively browses through a list of available
-rooms and beds in the ward and makes a selection 
+    And the Charge Nurse enters the bed number 
+    And  Charge Nurse enters remaining admission information
+    When the application command admitPatient is invoke
+    Then HMS admits the patient
+
+  Scenario: Charge Nurse admits a patient
+    Given the HMS-PMS is On 
+    And the Charge Nurse is logged in 
+    And the use case Consult File is included
+    And Charge Nurse chooses to admit a Patient
+    And HMS-PMS asks for room and bed number
+    And the Charge nurse selects a rooms list of available rooms
+    And a beds in the ward
     And  Charge Nurse enters remaining admission information
     When the application command admitPatient is invoke
     Then HMS admits the patient
