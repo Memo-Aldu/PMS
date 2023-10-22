@@ -15,7 +15,7 @@ Feature: Doctor prescribes medication to a patient
 
     Scenario: Doctor prescribes medication to a patient with invalid patient nas
         Given the HMS-PMS is running
-        And the staff member is logged in
+        And the Doctor is logged in
         And patient is registered
         And the HMS-PMS asks for the patient's nas
         And the Doctor enters an invalid patient nas
@@ -28,7 +28,7 @@ Feature: Doctor prescribes medication to a patient
 
     Scenario: Doctor prescribes medication to a patient that is not hers
         Given the HMS-PMS is running
-        And the staff member is logged in
+        And the Doctor is logged in
         And patient is registered registered
         And the HMS-PMS asks for the patient's nas
         And the Doctor enters the patient's nas
@@ -41,7 +41,7 @@ Feature: Doctor prescribes medication to a patient
 
     Scenario: Doctor prescribes medication to a patient that is registered but the medication is not in the system
         Given the HMS-PMS is running
-        And the staff member is logged in
+        And the Doctor is logged in
         And the patient is registered
         And the HMS-PMS asks for the patient's nas
         And the Doctor enters the patient's nas
