@@ -4,10 +4,12 @@ Feature: Discharge Patient
   Scenario: Charge Nurse discharges a Patient
     Given the HMS-PMS is On 
     And the Charge Nurse is logged in 
-    And the use case Consult File is included
-    And the Charge Nurse selects the discharge option of a Patient
+    And the Charge Nurse consults the patient files
+    And the Charge Nurse selects to discharge the Patient
     When the application command dischargePatient is invoked
-    Then the HMS-PMS displays an acknowledgement message
-    And the HMS-PMS updates bed availability
-    And the patient is discharged
-    And the discharged Patient's information are printed
+    Then the Patient is no longer admitted
+    And the Patient bed added to the division availabilities
+    And the Patient discharge information issued
+    And the Patient copies slated to be sent to Patient external doctor
+    And the HMS-PMS displays an acknowledgement message
+

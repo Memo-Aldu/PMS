@@ -1,49 +1,44 @@
 # UC9 Request Patient Admission
-Feature: Staff member attempts to admit patient to another division
+Feature: Charge Nurse request patient admission to another division
 
-    Scenario: Staff member attempts to admit registered patient to another division
-        Given the HMS-PMS system is running
-        And staff member is logged in
+    Scenario: Charge Nurse request patient admission to another division
+        Given the HMS-PMS system is On
+        And Charge Nurse is logged in
         And patient is registered
         And patient is not admitted to any division
-        When the application command "admitToDivision" is invoked
-        Then patient is admitted to a division
-        And the system invokes "updatePatientFile" command
-        And the system saves the patient's division
-        And the PMS system displays a message that patient is admitted to another division
+        And the patient registration is being displayed
+        And HMS asks for the division for which request is to be made
+        And the HMS-PMS asks for additional information
+        And the Charge Nurse provides the requested information
+        When the application command requestPatientAdmission
+        Then the patient is added to the request list for admission at the requested division
+        And HMS-PMS sends notification to requested ward Charge Nurse
+        And the PMS system displays a message that patient is request for admission to another division
 
-    Scenario: Staff member attempts to transfer a registered patient to from one division to another
-        Given the HMS-PMS system is running
-        And staff member is logged in
+
+    Scenario: Charge Nurse provides incorrect information when requesting patient admission to another division
+        Given the HMS-PMS system is On
+        And Charge Nurse is logged in
+        And patient is registered
+        And patient is not admitted to any division
+        And the patient registration is being displayed
+        And HMS asks for the division for which request is to be made
+        And the HMS-PMS asks for additional information
+        And the Charge Nurse provides incorrect information
+        When the application command requestPatientAdmission
+        Then the patient is not added to the request list for admission at the requested division
+        And HMS-PMS displays an information error message
+
+
+    Scenario: Charge Nurse request patient admission to another division when patient is already admitted to a division
+        Given the HMS-PMS system is On
+        And Charge Nurse is logged in
         And patient is registered
         And patient is admitted to a division
-        When the system command "transferToDivision" is invoked
-        Then patient is transferred to another division
-        And the system invokes "updatePatientFile" command
-        And the system updates the patient's division inside the file
-        And the PMS system displays a message that patient is transferred to another division
-
-    Scenario: Staff member attempts to admit a non-registered patient to a division
-        Given the HMS-PMS system is running
-        And staff member is logged in
-        And patient is not registered
-        When the application command "admitToDivision" is invoked
-        Then patient is not admitted to a division
-        And the PMS system displays a message that patient is not registered in the PMS system
-
-    Scenario: Staff member attempts to transfer a non-registered patient to another division
-        Given the HMS-PMS system is running
-        And staff member is logged in
-        And patient is not registered
-        When the application command "transferToDivision" is invoked    
-        Then patient is not transferred to another division
-        And the PMS system displays a message that patient is not registered in the PMS system
-
-    Scenario: Staff member attempts to tranfer a registered patient that is not admitted in any division
-        Given the HMS-PMS system is running
-        And staff member is logged in
-        And patient is registered
-        And patient is not admitted to any division
-        When the application command "transferToDivision" is invoked
-        Then patient is not transferred to another division
-        And the PMS system displays a message that patient is not admitted to any division
+        And the patient registration is being displayed
+        And HMS asks for the division for which request is to be made
+        And the HMS-PMS asks for additional information
+        And the Charge Nurse provides the requested information
+        When the application command requestPatientAdmission
+        Then the patient is not added to the request list for admission at the requested division
+        And HMS-PMS displays patient already in ward error message
