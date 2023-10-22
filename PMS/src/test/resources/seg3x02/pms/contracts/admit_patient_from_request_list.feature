@@ -4,7 +4,8 @@ Feature: Admit patient from request list
     Given the HMS is On 
     And the Charge Nurse is logged in 
     And the Patient is in the request list
-    When Charge Nurse selects a patient
+    And Charge Nurse selects a patient
+    When the application command admitPatientFromRequestList is invoked
     Then HMS displays the selected Patient registration
     And perform admission as in use case Admit Patient (steps 2 - )
 
@@ -13,5 +14,6 @@ Feature: Admit patient from request list
     And the Charge Nurse is logged in
     And the Patient is in the request list
     And the Patient cannot be admitted
-    When Charge Nurse denies Patient admission
-    Then HMS sends a notification to the Charge Nurse who requested admission
+    When the application command admitPatientFromRequestList is invoked
+    Then Charge Nurse denies Patient admission
+    And HMS sends a notification to the Charge Nurse who requested admission
