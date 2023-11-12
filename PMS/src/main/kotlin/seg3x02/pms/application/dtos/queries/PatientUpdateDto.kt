@@ -1,6 +1,6 @@
 package seg3x02.pms.application.dtos.queries
 
-import seg3x02.pms.application.dtos.enums.MaritalStatusEnum
+import seg3x02.pms.application.enums.MaritalStatusEnum
 import java.sql.Date
 import java.util.*
 
