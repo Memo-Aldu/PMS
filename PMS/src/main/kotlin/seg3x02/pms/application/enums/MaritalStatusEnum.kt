@@ -1,4 +1,4 @@
-package seg3x02.pms.application.dtos.enums
+package seg3x02.pms.application.enums
 
 /**
  * @author : memo-aldu

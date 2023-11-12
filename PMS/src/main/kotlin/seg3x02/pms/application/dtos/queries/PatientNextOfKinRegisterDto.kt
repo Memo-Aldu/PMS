@@ -1,6 +1,6 @@
 package seg3x02.pms.application.dtos.queries
 
-import seg3x02.pms.application.dtos.enums.PatientKinRelationshipEnum
+import seg3x02.pms.application.enums.PatientKinRelationshipEnum
 
 /**
  * @author : memo-aldu
