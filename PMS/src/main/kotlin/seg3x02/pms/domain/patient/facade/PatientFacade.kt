@@ -6,6 +6,7 @@ import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientRegisterDto
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
+import seg3x02.pms.domain.staff.entities.Staff
 import java.util.UUID
 
 /**
@@ -19,4 +20,5 @@ interface PatientFacade {
     fun createPatientAddress(address: AddressRegisterDto): Address?
     fun setPatientNextOfKin(patientNAS: String, patientNextOfKin: PatientNextOfKin) : UUID?
     fun setPatientAddress(patientNAS: String, patientAddress: Address) : UUID?
+    fun setPatientExternalDoctor(patientNaS: String, externalDoctor: Staff) : String?
 }

@@ -2,6 +2,7 @@ package seg3x02.pms.domain.staff.entities
 
 import seg3x02.pms.domain.user.entities.UserAccount
 import seg3x02.pms.domain.user.entities.UserRole
+import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -10,9 +11,7 @@ import seg3x02.pms.domain.user.entities.UserRole
  **/
 class Staff(
     val staffId: String,
-    // division: Division,
-
-
+    val divisionId: UUID,
 ) {
     lateinit var user: UserAccount
     lateinit var role: UserRole

@@ -16,6 +16,7 @@ import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
 import seg3x02.pms.domain.patient.repositories.AddressRepository
 import seg3x02.pms.domain.patient.repositories.PatientNextOfKinRepository
 import seg3x02.pms.domain.patient.repositories.PatientRepository
+import seg3x02.pms.domain.staff.entities.Staff
 import java.util.*
 
 /**
@@ -76,6 +77,17 @@ class PatientFacadeImpl(
             val updatedPatient = patientRepository.save(patient)
             eventEmitter.emit(PatientUpdatedEvent(UUID.randomUUID(), Date(), updatedPatient.nas))
             return patientAddress.id
+        }
+        return null
+    }
+
+    override fun setPatientExternalDoctor(patientNaS: String, externalDoctor: Staff): String? {
+        val patient = patientRepository.findById(patientNaS)
+        if (patient != null) {
+            patient.externalDoctor = externalDoctor
+            val updatedPatient = patientRepository.save(patient)
+            eventEmitter.emit(PatientUpdatedEvent(UUID.randomUUID(), Date(), updatedPatient.nas))
+            return externalDoctor.staffId
         }
         return null
     }

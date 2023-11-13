@@ -18,11 +18,13 @@ class RegisterPatientImpl(
     override fun registerPatient(patient: PatientRegisterDto): String? {
         val patientNextOfKin = patientFacade.createPatientNextOfKin(patient.nextOfKin)
         val patientAddress = patientFacade.createPatientAddress(patient.address)
+        val externalDoctor = staffFacade.getStaffById(patient.externalDoctorID)
 
-        if (patientNextOfKin != null && patientAddress != null) {
+        if (patientNextOfKin != null && patientAddress != null && externalDoctor != null) {
             val patientNAS = patientFacade.registerPatient(patient)
             patientFacade.setPatientNextOfKin(patient.nas, patientNextOfKin)
             patientFacade.setPatientAddress(patient.nas, patientAddress)
+            patientFacade.setPatientExternalDoctor(patient.nas, externalDoctor)
             return patientNAS
         }
         return null
