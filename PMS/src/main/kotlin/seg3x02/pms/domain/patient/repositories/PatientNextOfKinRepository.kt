@@ -1,6 +1,7 @@
 package seg3x02.pms.domain.patient.repositories
 
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
+import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -9,5 +10,5 @@ import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
  **/
 interface PatientNextOfKinRepository {
     fun save(patientNextOfKin: PatientNextOfKin): PatientNextOfKin
-    fun findById(id: String): PatientNextOfKin?
+    fun findById(id: UUID): PatientNextOfKin?
 }

@@ -17,7 +17,7 @@ data class PatientRegisterDto(
     val dob: Date,
     val gender: String,
     val maritalStatus: MaritalStatusEnum,
-    val externalDoctorID: String,
+    val externalDoctorID: UUID,
     var address: AddressRegisterDto,
     var nextOfKin: PatientNextOfKinRegisterDto
 

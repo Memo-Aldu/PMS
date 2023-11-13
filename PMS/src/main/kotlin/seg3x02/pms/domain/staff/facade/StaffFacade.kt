@@ -8,5 +8,5 @@ import seg3x02.pms.domain.staff.entities.Staff
  * @created : 11/12/2023, Sunday
  **/
 interface StaffFacade {
-    fun getStaffById(id: String): Staff?
+    fun getStaffById(id: String): String?
 }

@@ -12,19 +12,18 @@ import seg3x02.pms.domain.staff.facade.StaffFacade
  **/
 class RegisterPatientImpl(
     private var patientFacade: PatientFacade,
-    private var staffFacade: StaffFacade
 ): RegisterPatient {
 
     override fun registerPatient(patient: PatientRegisterDto): String? {
-        val patientNextOfKin = patientFacade.createPatientNextOfKin(patient.nextOfKin)
-        val patientAddress = patientFacade.createPatientAddress(patient.address)
-        val externalDoctor = staffFacade.getStaffById(patient.externalDoctorID)
+        val patientNextOfKinId = patientFacade.createPatientNextOfKin(patient.nextOfKin)
+        val patientAddressId = patientFacade.createPatientAddress(patient.address)
+        val externalDoctorId = patientFacade.getExternalDoctor(patient.externalDoctorID)
 
-        if (patientNextOfKin != null && patientAddress != null && externalDoctor != null) {
+        if (patientNextOfKinId != null && patientAddressId != null && externalDoctorId != null) {
             val patientNAS = patientFacade.registerPatient(patient)
-            patientFacade.setPatientNextOfKin(patient.nas, patientNextOfKin)
-            patientFacade.setPatientAddress(patient.nas, patientAddress)
-            patientFacade.setPatientExternalDoctor(patient.nas, externalDoctor)
+            patientFacade.setPatientNextOfKin(patient.nas, patientNextOfKinId)
+            patientFacade.setPatientAddress(patient.nas, patientAddressId)
+            patientFacade.setPatientExternalDoctor(patient.nas, externalDoctorId)
             return patientNAS
         }
         return null

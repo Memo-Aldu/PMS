@@ -9,6 +9,5 @@ enum class StaffRoleEnum {
     NURSE,
     CHARGE_NURSE,
     DOCTOR,
-    EXTERNAL_DOCTOR,
     //TODO ADD THE REST OF THE ROLES
 }

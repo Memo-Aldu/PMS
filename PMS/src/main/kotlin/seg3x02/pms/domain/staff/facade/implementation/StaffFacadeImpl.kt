@@ -12,7 +12,7 @@ import seg3x02.pms.domain.staff.repository.StaffRepository
 class StaffFacadeImpl(
     private val staffRepository: StaffRepository
 ) : StaffFacade {
-    override fun getStaffById(id: String): Staff? {
-        return staffRepository.getStaffById(id)
+    override fun getStaffById(id: String): String? {
+        return staffRepository.getStaffById(id)?.staffId
     }
 }

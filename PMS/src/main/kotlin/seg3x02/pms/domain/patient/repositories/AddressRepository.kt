@@ -1,6 +1,7 @@
 package seg3x02.pms.domain.patient.repositories
 
 import seg3x02.pms.domain.patient.entities.patient.Address
+import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -9,5 +10,5 @@ import seg3x02.pms.domain.patient.entities.patient.Address
  **/
 interface AddressRepository {
     fun save(address: Address): Address
-    fun findById(id: String): Address?
+    fun findById(id: UUID): Address?
 }

@@ -1,7 +1,6 @@
 package seg3x02.pms.domain.patient.entities.patient
 
 import seg3x02.pms.domain.patient.enums.MaritalStatusEnum
-import seg3x02.pms.domain.staff.entities.Staff
 import java.sql.Date
 
 /**
@@ -20,6 +19,6 @@ class Patient(
 ) {
     lateinit var address: Address;
     lateinit var nextOfKin: PatientNextOfKin;
-    lateinit var externalDoctor: Staff;
+    lateinit var externalDoctor: ExternalDoctor;
 
 }
