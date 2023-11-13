@@ -20,7 +20,4 @@ data class PatientRegisterDto(
     val externalDoctorID: UUID,
     var address: AddressRegisterDto,
     var nextOfKin: PatientNextOfKinRegisterDto
-
-
-
 )

@@ -1,9 +1,6 @@
 package seg3x02.pms.domain.patient.facade
 
-import seg3x02.pms.application.dtos.queries.AddressRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientDischargeDto
-import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientRegisterDto
+import seg3x02.pms.application.dtos.queries.*
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.staff.entities.Staff
@@ -22,5 +19,6 @@ interface PatientFacade {
     fun setPatientAddress(patientNAS: String, patientAddressId: UUID) : UUID?
     fun setPatientExternalDoctor(patientNaS: String, externalDoctorId: UUID) : UUID?
     fun getExternalDoctor(externalDoctorID: UUID): UUID?
+    fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean
 
 }

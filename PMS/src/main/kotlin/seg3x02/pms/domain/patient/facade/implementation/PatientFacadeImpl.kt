@@ -3,6 +3,7 @@ package seg3x02.pms.domain.patient.facade.implementation
 import seg3x02.pms.application.dtos.queries.AddressRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientRegisterDto
+import seg3x02.pms.application.dtos.queries.PatientUpdateDto
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
@@ -51,17 +52,11 @@ class PatientFacadeImpl(
     }
 
     override fun createPatientNextOfKin(nextOfKin: PatientNextOfKinRegisterDto): UUID? {
-        var patientNextOfKin = patientNextOfKinFactory.createPatientNextOfKin(nextOfKin)
-        patientNextOfKin = patientNextOfKinRepository.save(patientNextOfKin)
-        eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientNextOfKin.id))
-        return patientNextOfKinRepository.save(patientNextOfKin).id
+        return createNextOfKin(nextOfKin).id
     }
 
     override fun createPatientAddress(address: AddressRegisterDto): UUID? {
-        var patientAddress = addressFactory.createAddress(address)
-        patientAddress =  addressRepository.save(patientAddress)
-        eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientAddress.id))
-        return addressRepository.save(patientAddress).id
+        return createAddress(address).id
     }
 
     override fun setPatientNextOfKin(patientNAS: String, patientNextOfKinId: UUID): UUID? {
@@ -103,5 +98,45 @@ class PatientFacadeImpl(
             return externalDoctor.id
         }
         return null
+    }
+
+    override fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean {
+        var patient = patientRepository.findById(patientNAS)
+        if (patient != null) {
+            val updated = patientFactory.createPatient(updatedPatient)
+            patient.update(updated)
+            if (updatedPatient.address != null) {
+                val address = createAddress(updatedPatient.address!!)
+                patient.address = address
+            }
+            if (updatedPatient.nextOfKin != null) {
+                val nextOfKin = createNextOfKin(updatedPatient.nextOfKin!!)
+                patient.nextOfKin = nextOfKin
+            }
+            if (updatedPatient.externalDoctorID != null) {
+                val externalDoctor = externalDoctorRepository.findById(updatedPatient.externalDoctorID)
+                if (externalDoctor != null) {
+                    patient.externalDoctor = externalDoctor
+                }
+            }
+            patient = patientRepository.save(patient)
+            eventEmitter.emit(PatientUpdatedEvent(UUID.randomUUID(), Date(), patient.nas))
+            return true
+        }
+        return false
+    }
+
+    private fun createAddress(address: AddressRegisterDto): Address {
+        var patientAddress = addressFactory.createAddress(address)
+        patientAddress =  addressRepository.save(patientAddress)
+        eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientAddress.id))
+        return addressRepository.save(patientAddress)
+    }
+
+    private fun createNextOfKin(nextOfKin: PatientNextOfKinRegisterDto): PatientNextOfKin {
+        var patientNextOfKin = patientNextOfKinFactory.createPatientNextOfKin(nextOfKin)
+        patientNextOfKin = patientNextOfKinRepository.save(patientNextOfKin)
+        eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientNextOfKin.id))
+        return patientNextOfKinRepository.save(patientNextOfKin)
     }
 }
