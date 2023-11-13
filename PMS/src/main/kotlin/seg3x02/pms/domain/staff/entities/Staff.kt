@@ -9,7 +9,7 @@ import seg3x02.pms.domain.user.entities.UserRole
  * @created : 2023-11-08, Wednesday
  **/
 class Staff(
-    val employeeID: String,
+    val staffId: String,
     // division: Division,
 
 
