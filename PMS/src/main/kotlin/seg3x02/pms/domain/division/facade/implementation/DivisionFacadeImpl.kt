@@ -49,12 +49,14 @@ class DivisionFacadeImpl (
         if(!hasAvailableRooms(admissionRequest.divisonId) || hasChanged)
             division.setDivisionStatus(DivisionStatus.COMPLETE)
         divisionRepository.save(division)
-        
+
         return true
     }
     override fun requestPatientAdmission(requestDto: PatientAdmissionRequestDto): Boolean {
+        val division = divisionRepository.findById(requestDto.divisionId)
         val admissionRequestEntity = patientAdmissionRequestFactory.createAdmissionRequest(requestDto)
         patientAdmissionRequestRepository.save(admissionRequestEntity)
+        division.patientAdmissionRequestList.add(requestDto.patientNAS)
         return true
 
     }
