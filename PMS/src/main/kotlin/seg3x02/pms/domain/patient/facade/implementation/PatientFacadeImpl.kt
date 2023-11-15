@@ -96,4 +96,15 @@ class PatientFacadeImpl(
         eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientNextOfKin.id))
         return patientNextOfKin;
     }
+    override fun isPatientAdmitted(patientNAS: String): Boolean {
+        val p = patientAdmissionRepository.finByPatientId(patientNAS)
+        if (p != null)
+            return true
+        return false
+    }
+    override fun doesPatientExist(patientNAS: String): Boolean{
+        if(patientRepository.findById(patientNAS) == null)
+            return false
+        return true
+    }
 }
