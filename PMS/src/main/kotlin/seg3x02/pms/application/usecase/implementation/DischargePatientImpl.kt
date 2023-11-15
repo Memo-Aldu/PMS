@@ -11,8 +11,16 @@ import seg3x02.pms.domain.patient.facade.PatientFacade
  **/
 class DischargePatientImpl(
     private val patientFacade: PatientFacade
+    private val patientRepository: PatientRepository
 ): DischargePatient {
     override fun dischargePatient(patient: PatientDischargeDto): Boolean {
-        TODO("Not yet implemented")
+        val patientToBeDischarged = patientFacade.patientRepository.findById(patient.patientId)
+        if (patientToBeDischarged != null) {
+            patientToBeDischarged.dischargePatient(patient)
+            patientRepository.save(patientToBeDischarged)
+            return true
+        } else {
+            return false
+        }
     }
 }
