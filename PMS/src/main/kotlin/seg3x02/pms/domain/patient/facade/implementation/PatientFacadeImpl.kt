@@ -6,15 +6,12 @@ import seg3x02.pms.application.dtos.queries.PatientRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientUpdateDto
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.entities.patient.Address
-import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
-import seg3x02.pms.domain.patient.entities.patient.Patient
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.patient.events.PatientCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientNextOfKinCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientUpdatedEvent
 import seg3x02.pms.domain.patient.facade.PatientFacade
 import seg3x02.pms.domain.patient.factory.AddressFactory
-import seg3x02.pms.domain.patient.factory.ExternalDoctorFactory
 import seg3x02.pms.domain.patient.factory.PatientFactory
 import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
 import seg3x02.pms.domain.patient.repositories.AddressRepository
@@ -36,7 +33,6 @@ class PatientFacadeImpl(
     private val patientFactory: PatientFactory,
     private val patientNextOfKinFactory: PatientNextOfKinFactory,
     private val addressFactory: AddressFactory,
-    private val externalDoctorFactory: ExternalDoctorFactory,
     private var eventEmitter: DomainEventEmitter,
 
     ): PatientFacade {
@@ -64,7 +60,7 @@ class PatientFacadeImpl(
     override fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean {
         var patient = patientRepository.findById(patientNAS)
         if (patient != null) {
-            val updated = patientFactory.createPatient(updatedPatient)
+            val updated = patientFactory.createPatient(patient, updatedPatient)
             patient.update(updated)
             if (updatedPatient.address != null) {
                 val address = createAddress(updatedPatient.address!!)

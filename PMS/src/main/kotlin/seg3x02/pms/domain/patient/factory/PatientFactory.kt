@@ -11,6 +11,6 @@ import seg3x02.pms.domain.patient.entities.patient.Patient
  **/
 interface PatientFactory {
     fun createPatient(patient: PatientRegisterDto): Patient
-    fun createPatient(patient: PatientUpdateDto): Patient
+    fun createPatient(patientEntity: Patient, patient: PatientUpdateDto): Patient
 
 }
