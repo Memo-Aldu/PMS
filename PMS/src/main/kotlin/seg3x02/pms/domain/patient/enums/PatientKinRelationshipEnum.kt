@@ -12,5 +12,5 @@ enum class PatientKinRelationshipEnum {
     SPOUSE,
     CHILD,
     GUARDIAN,
-    OTHER
+    OTHER;
 }

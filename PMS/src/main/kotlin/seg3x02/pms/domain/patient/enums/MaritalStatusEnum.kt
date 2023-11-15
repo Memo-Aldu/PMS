@@ -10,5 +10,5 @@ enum class MaritalStatusEnum {
     MARRIED,
     DIVORCED,
     WIDOWED,
-    SEPARATED
+    SEPARATED;
 }
