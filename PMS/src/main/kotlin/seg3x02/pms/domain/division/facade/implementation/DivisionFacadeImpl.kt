@@ -35,7 +35,7 @@ class DivisionFacadeImpl (
         val division = divisionRepository.findById(admissionRequest.divisonId)
         val bed = bedRepository.findById(admissionRequest.bedId)
         val room = roomRepository.findById(admissionRequest.roomId)
-        if(bed == null || room == null || division == null)
+        if(bed == null || room == null || division == null || bed.bedStatus == BedStatus.TAKEN)
             return false
         val admission = patientAdmissionFactory.createPatientAdmission(admissionRequest)
         patientAdmissionRepository.save(admission)
