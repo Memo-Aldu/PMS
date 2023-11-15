@@ -11,14 +11,14 @@ class RequestPatientAdmissionImpl(
     private val divisionFacade: DivisionFacade
 ) : RequestPatientAdmission {
 
-    override fun requestPatientAdmission(requestDto: PatientAdmissionRequestDto): UUID? {
-        val isPatientAdmitted = patientFacade.isPatientAdmitted(requestDto.patientNAS)
-        val doesPatientExist = patientFacade.doesPatientExist(requestDto.patientNAS)
+    override fun requestPatientAdmission(admissionRequestDto: PatientAdmissionRequestDto): UUID? {
+        val isPatientAdmitted = patientFacade.isPatientAdmitted(admissionRequestDto.patientNAS)
+        val doesPatientExist = patientFacade.doesPatientExist(admissionRequestDto.patientNAS)
         if (isPatientAdmitted || !doesPatientExist) {
             return null;
         }
         else
-            divisionFacade.requestPatientAdmission(requestDto);
+            divisionFacade.requestPatientAdmission(admissionRequestDto);
         return null;
     }
 }
