@@ -23,7 +23,7 @@ class Division(
         private set
     lateinit var chargeNurse: Staff
     var staffs: MutableList<String> = ArrayList()
-    var patients: MutableList<String> = ArrayList()
+    var patientAdmissionRequestList: MutableList<String> = ArrayList()
     var rooms: MutableList<Room> = ArrayList()
 
     fun setDivisionStatus(status: DivisionStatus){
