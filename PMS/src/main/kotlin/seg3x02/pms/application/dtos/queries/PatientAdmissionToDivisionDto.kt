@@ -1,5 +1,6 @@
 package seg3x02.pms.application.dtos.queries
 
+import java.util.UUID
 /**
  * @author : memo-aldu
  * @mailto : maldu064@uOttawa.ca
