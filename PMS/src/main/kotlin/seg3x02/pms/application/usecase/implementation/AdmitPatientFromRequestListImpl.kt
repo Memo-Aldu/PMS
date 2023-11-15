@@ -2,6 +2,7 @@ package seg3x02.pms.application.usecase.implementation
 
 import seg3x02.pms.application.dtos.queries.PatientAdmissionFormRequestDto
 import seg3x02.pms.application.usecase.AdmitPatientFromRequestList
+import seg3x02.pms.domain.patient.facade.PatientFacade
 import java.util.*
 
 /**
@@ -11,6 +12,11 @@ import java.util.*
  **/
 class AdmitPatientFromRequestListImpl: AdmitPatientFromRequestList {
     override fun admitPatientFromRequestList(patientToAdmit: PatientAdmissionFormRequestDto): UUID? {
-        TODO("Not yet implemented")
+        val accountExist = patientRepository.findById(patientToAdmit.nas)
+        if(accountExist != null) {
+            return patientFacade.admitPatientToDivision(patientToAdmit)
+        } else {
+            return null
+        }
     }
 }
