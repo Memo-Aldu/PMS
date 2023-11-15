@@ -14,5 +14,6 @@ import java.util.UUID
 interface PatientFacade {
     fun registerPatient(patient: PatientRegisterDto): String?
     fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean
+    fun patientExists(patientNAS: String): Boolean
 
 }

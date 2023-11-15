@@ -83,6 +83,10 @@ class PatientFacadeImpl(
         return false
     }
 
+    override fun patientExists(patientNAS: String): Boolean {
+        return patientRepository.findById(patientNAS) != null
+    }
+
     private fun createAddress(address: AddressRegisterDto): Address {
         var patientAddress = addressFactory.createAddress(address)
         patientAddress =  addressRepository.save(patientAddress)
