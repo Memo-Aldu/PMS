@@ -14,10 +14,7 @@ import seg3x02.pms.domain.patient.facade.PatientFacade
 import seg3x02.pms.domain.patient.factory.AddressFactory
 import seg3x02.pms.domain.patient.factory.PatientFactory
 import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
-import seg3x02.pms.domain.patient.repositories.AddressRepository
-import seg3x02.pms.domain.patient.repositories.ExternalDoctorRepository
-import seg3x02.pms.domain.patient.repositories.PatientNextOfKinRepository
-import seg3x02.pms.domain.patient.repositories.PatientRepository
+import seg3x02.pms.domain.patient.repositories.*
 import java.util.*
 
 /**
@@ -27,6 +24,7 @@ import java.util.*
  **/
 class PatientFacadeImpl(
     private val patientRepository: PatientRepository,
+    private val patientAdmissionRepository: PatientAdmissionRepository,
     private val patientNextOfKinRepository: PatientNextOfKinRepository,
     private val addressRepository: AddressRepository,
     private val externalDoctorRepository: ExternalDoctorRepository,

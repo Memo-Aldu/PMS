@@ -1,7 +1,7 @@
 package seg3x02.pms.application.usecase
 
 import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
-import java.util.UUID
+import java.util.*
 
 /**
  * @author : memo-aldu
