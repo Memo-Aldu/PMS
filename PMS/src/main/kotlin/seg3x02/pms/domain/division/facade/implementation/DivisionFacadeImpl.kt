@@ -45,7 +45,7 @@ class DivisionFacadeImpl (
         if(!room.hasAvailableBeds())
             room.setRoomStatus(RoomStatus.COMPLETE)
             roomRepository.save(room)
-        if(!division.hasAvailableRooms())
+        if(!hasAvailableRooms(admissionRequest.divisonId))
             division.setDivisionStatus(DivisionStatus.COMPLETE)
             hasChanged = true
         divisionRepository.save(division)
