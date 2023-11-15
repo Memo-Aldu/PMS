@@ -45,10 +45,11 @@ class DivisionFacadeImpl (
         if(!room.hasAvailableBeds())
             room.setRoomStatus(RoomStatus.COMPLETE)
             roomRepository.save(room)
-        if(!hasAvailableRooms(admissionRequest.divisonId))
-            division.setDivisionStatus(DivisionStatus.COMPLETE)
             hasChanged = true
+        if(!hasAvailableRooms(admissionRequest.divisonId) || hasChanged)
+            division.setDivisionStatus(DivisionStatus.COMPLETE)
         divisionRepository.save(division)
+        
         return true
     }
     override fun requestPatientAdmission(requestDto: PatientAdmissionRequestDto): Boolean {
