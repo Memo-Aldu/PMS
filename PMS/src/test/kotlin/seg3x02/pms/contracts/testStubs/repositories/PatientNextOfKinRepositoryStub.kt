@@ -9,7 +9,7 @@ import java.util.*
  * @mailto : maldu064@uOttawa.ca
  * @created : 11/15/2023, Wednesday
  **/
-class PatientNextOfKinRepository: PatientNextOfKinRepository {
+class PatientNextOfKinRepositoryStub: PatientNextOfKinRepository {
     private val patientNextOfKins: MutableMap<UUID, PatientNextOfKin> = HashMap()
     override fun save(patientNextOfKin: PatientNextOfKin): PatientNextOfKin {
         patientNextOfKins[patientNextOfKin.id] = patientNextOfKin

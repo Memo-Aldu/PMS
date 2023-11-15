@@ -4,7 +4,7 @@ Feature: Staff Member attempts to register to the HMS-PMS system to identify him
 
 
     Scenario: The HMS-PMS is On, and a Staff Member successfully registers to the HMS-PMS system
-      Given the HMS system is running
+      Given the HMS-PMS system is running
       And the staff member selects to register to the system
       And the HMS-PMS asks for the staff member's information
       And the staff member provides all the required information
@@ -24,7 +24,7 @@ Feature: Staff Member attempts to register to the HMS-PMS system to identify him
 
 
     Scenario: The HMS-PMS is On, and Staff Member tries to register to the HMS-PMS but is not found in the system
-      Given the HMS system is running
+      Given the HMS-PMS system is running
       And the staff member selects to register to the system
       And the HMS-PMS asks for the staff member's information
       And the staff member provides all the required information
