@@ -2,6 +2,9 @@ package seg3x02.pms.domain.division.entities
 
 import seg3x02.pms.domain.division.enums.DivisionStatus
 import seg3x02.pms.domain.staff.entities.Staff
+import seg3x02.pms.domain.division.entities.Room
+import seg3x02.pms.domain.division.entities.AdmissionRequest
+import seg3x02.pms.domain.division.enums.RoomStatus
 import java.util.UUID
 
 /**
@@ -15,10 +18,14 @@ class Division(
     val location: String,
     val totalBeds: Int,
     val telephoneExtension: String,
-    val divisionStatus: DivisionStatus,
 ) {
+    lateinit var divisionStatus: DivisionStatus
     lateinit var chargeNurse: Staff
     var staffs: MutableList<String> = ArrayList()
     var patients: MutableList<String> = ArrayList()
-    var patientsAdmissionRequests: MutableList<UUID> = ArrayList()
+    var rooms: MutableList<Room> = ArrayList()
+
+    fun setDivisionStatus(status: DivisionStatus){
+        this.divisionStatus = status
+    }
 }
