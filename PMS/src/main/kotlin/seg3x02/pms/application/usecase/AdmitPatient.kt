@@ -13,5 +13,5 @@ interface AdmitPatient {
      * @param patient PatientAdmissionRequestDto
      * @return Boolean true if patient was admitted, false otherwise
      */
-    fun admitPatientToDivision(patient: PatientAdmissionRequestDto) : Boolean
+    fun admitPatientToDivision(admissionDto: PatientAdmissionToDivisionDto) : Boolean
 }
