@@ -47,15 +47,15 @@ class PatientFacadeImpl(
         }
         val patientNextOfKin: PatientNextOfKin = createNextOfKin(patient.nextOfKin)
         val patientAddress: Address = createAddress(patient.address)
-        val externalDoctorID = externalDoctorRepository.findById(patient.externalDoctorID)
+        val externalDoctor = externalDoctorRepository.findById(patient.externalDoctorID)
 
-        if (patientNextOfKin === null || patientAddress == null || externalDoctorID == null) {
+        if (patientNextOfKin === null || patientAddress == null || externalDoctor == null) {
             return null
         }
         var patientEntity = patientFactory.createPatient(patient)
         patientEntity.setPatientAddress(patientAddress)
         patientEntity.setPatientNextOfKin(patientNextOfKin)
-        patientEntity.setPatientExternalDoctor(externalDoctorID)
+        patientEntity.setPatientExternalDoctor(externalDoctor)
         patientEntity = patientRepository.save(patientEntity)
         eventEmitter.emit(PatientCreatedEvent(UUID.randomUUID(), Date(), patientEntity.nas))
         return patientEntity.nas
