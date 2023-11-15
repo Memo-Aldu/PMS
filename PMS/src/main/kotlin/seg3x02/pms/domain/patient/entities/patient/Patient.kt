@@ -1,7 +1,7 @@
 package seg3x02.pms.domain.patient.entities.patient
 
+import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.enums.MaritalStatusEnum
-import seg3x02.pms.domain.staff.entities.Staff
 import java.sql.Date
 
 /**
@@ -11,15 +11,23 @@ import java.sql.Date
  **/
 class Patient(
     val nas: String,
-    val firstName: String,
-    val lastName: String,
-    val phoneNumber: String,
-    val dob: Date,
-    val gender: String,
-    val maritalStatus: MaritalStatusEnum,
+    var firstName: String,
+    var lastName: String,
+    var phoneNumber: String,
+    var dob: Date,
+    var gender: String,
+    var maritalStatus: MaritalStatusEnum,
 ) {
     lateinit var address: Address;
     lateinit var nextOfKin: PatientNextOfKin;
-    lateinit var externalDoctor: Staff;
+    lateinit var externalDoctor: ExternalDoctor;
 
+    fun update(patient: Patient) {
+        this.firstName = patient.firstName
+        this.lastName = patient.lastName
+        this.phoneNumber = patient.phoneNumber
+        this.dob = patient.dob
+        this.gender = patient.gender
+        this.maritalStatus = patient.maritalStatus
+    }
 }

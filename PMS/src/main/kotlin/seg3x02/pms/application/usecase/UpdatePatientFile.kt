@@ -13,5 +13,5 @@ interface UpdatePatientFile {
      * @param updatedPatient PatientUpdateDto
      * @return Boolean true if patient file was updated, false otherwise
      */
-    fun updatePatientFile(updatedPatient: PatientUpdateDto) : Boolean
+    fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String) : Boolean
 }

@@ -6,7 +6,7 @@ package seg3x02.pms.application.dtos.queries
  * @created : 2023-10-19, Thursday
  **/
 data class StaffRegisterDto(
-        val staffNAS: String,
+        val staffId: String,
         val password: String,
         val firstName: String,
         val lastName: String,
