@@ -13,12 +13,6 @@ import java.util.UUID
  **/
 interface PatientFacade {
     fun registerPatient(patient: PatientRegisterDto): String?
-    fun createPatientNextOfKin(nextOfKin: PatientNextOfKinRegisterDto): UUID?
-    fun createPatientAddress(address: AddressRegisterDto): UUID?
-    fun setPatientNextOfKin(patientNAS: String, patientNextOfKinId: UUID) : UUID?
-    fun setPatientAddress(patientNAS: String, patientAddressId: UUID) : UUID?
-    fun setPatientExternalDoctor(patientNaS: String, externalDoctorId: UUID) : UUID?
-    fun getExternalDoctor(externalDoctorID: UUID): UUID?
     fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean
 
 }

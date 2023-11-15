@@ -30,4 +30,16 @@ class Patient(
         this.gender = patient.gender
         this.maritalStatus = patient.maritalStatus
     }
+
+    fun setPatientNextOfKin(nextOfKin: PatientNextOfKin) {
+        this.nextOfKin = nextOfKin
+    }
+
+    fun setPatientExternalDoctor(externalDoctor: ExternalDoctor) {
+        this.externalDoctor = externalDoctor
+    }
+
+    fun setPatientAddress(address: Address) {
+        this.address = address
+    }
 }
