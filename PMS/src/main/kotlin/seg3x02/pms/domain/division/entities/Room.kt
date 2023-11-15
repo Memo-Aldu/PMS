@@ -8,7 +8,8 @@ class Room(
     val id: UUID,
 )
 {
-    lateinit var roomStatus: RoomStatus
+    var roomStatus: RoomStatus = RoomStatus.NOTCOMPLETE
+        private set
     var beds: MutableList<Bed> = ArrayList()
     fun hasAvailableBeds(): Boolean {
         return beds.any { bed ->

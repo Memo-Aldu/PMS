@@ -19,7 +19,8 @@ class Division(
     val totalBeds: Int,
     val telephoneExtension: String,
 ) {
-    lateinit var divisionStatus: DivisionStatus
+    var divisionStatus: DivisionStatus = DivisionStatus.INCOMPLETE
+        private set
     lateinit var chargeNurse: Staff
     var staffs: MutableList<String> = ArrayList()
     var patients: MutableList<String> = ArrayList()
