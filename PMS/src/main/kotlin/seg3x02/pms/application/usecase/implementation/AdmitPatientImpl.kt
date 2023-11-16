@@ -7,7 +7,6 @@ import seg3x02.pms.domain.patient.facade.PatientFacade
 import java.util.*
 
 class AdmitPatientImpl(
-    private val patientFacade: PatientFacade,
     private val divisionFacade: DivisionFacade
 ) : AdmitPatient {
 
