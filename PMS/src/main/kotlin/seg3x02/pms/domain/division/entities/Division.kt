@@ -15,10 +15,19 @@ class Division(
     val location: String,
     val totalBeds: Int,
     val telephoneExtension: String,
-    val divisionStatus: DivisionStatus,
 ) {
+    var divisionStatus: DivisionStatus = DivisionStatus.INCOMPLETE
+        private set
     lateinit var chargeNurse: Staff
     var staffs: MutableList<String> = ArrayList()
-    var patients: MutableList<String> = ArrayList()
-    var patientsAdmissionRequests: MutableList<UUID> = ArrayList()
+    var patientAdmissionRequestList: MutableList<String> = ArrayList()
+    var rooms: MutableList<Room> = ArrayList()
+
+    fun setDivisionStatus(status: DivisionStatus){
+        this.divisionStatus = status
+    }
+
+    fun addPatientAdmissionRequest(patientNAS: String){
+        patientAdmissionRequestList.add(patientNAS)
+    }
 }

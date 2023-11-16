@@ -1,6 +1,7 @@
 package seg3x02.pms.domain.patient.factory
 
 import seg3x02.pms.application.dtos.queries.PatientAdmissionRequestDto
+import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
 import seg3x02.pms.domain.patient.entities.admission.PatientAdmission
 
 /**
@@ -9,5 +10,5 @@ import seg3x02.pms.domain.patient.entities.admission.PatientAdmission
  * @created : 11/12/2023, Sunday
  **/
 interface PatientAdmissionFactory {
-    fun createPatientAdmission(patientAdmissionRequestDto: PatientAdmissionRequestDto): PatientAdmission
+    fun createPatientAdmission(patientAdmissionToDivisionDto: PatientAdmissionToDivisionDto): PatientAdmission
 }
