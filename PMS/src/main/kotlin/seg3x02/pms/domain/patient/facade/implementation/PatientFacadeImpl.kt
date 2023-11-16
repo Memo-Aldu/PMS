@@ -1,17 +1,16 @@
 package seg3x02.pms.domain.patient.facade.implementation
 
-import seg3x02.pms.application.dtos.queries.AddressRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientUpdateDto
+import seg3x02.pms.application.dtos.queries.*
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
+import seg3x02.pms.domain.patient.events.DischargeCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientNextOfKinCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientUpdatedEvent
 import seg3x02.pms.domain.patient.facade.PatientFacade
 import seg3x02.pms.domain.patient.factory.AddressFactory
+import seg3x02.pms.domain.patient.factory.PatientDischargeFactory
 import seg3x02.pms.domain.patient.factory.PatientFactory
 import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
 import seg3x02.pms.domain.patient.repositories.*
@@ -26,6 +25,8 @@ class PatientFacadeImpl(
     private val patientRepository: PatientRepository,
     private val patientAdmissionRepository: PatientAdmissionRepository,
     private val patientNextOfKinRepository: PatientNextOfKinRepository,
+    private val dischargeRepository: PatientDischargeRepository,
+    private val dischargeFactory: PatientDischargeFactory,
     private val addressRepository: AddressRepository,
     private val externalDoctorRepository: ExternalDoctorRepository,
     private val patientFactory: PatientFactory,
@@ -89,6 +90,17 @@ class PatientFacadeImpl(
             return true
         }
         return false
+    }
+
+    override fun dischargePatient(discharge: PatientDischargeDto): UUID? {
+        val patientEntity = patientRepository.findById(discharge.patientNAS)
+        if (patientEntity != null) {
+            var dischargeEntity = dischargeFactory.createPatientDischarge(discharge)
+            dischargeEntity = dischargeRepository.save(dischargeEntity)
+            eventEmitter.emit(DischargeCreatedEvent(UUID.randomUUID(), Date(), dischargeEntity.id))
+            return dischargeEntity.id
+        }
+        return null
     }
 
     private fun createAddress(address: AddressRegisterDto): Address {

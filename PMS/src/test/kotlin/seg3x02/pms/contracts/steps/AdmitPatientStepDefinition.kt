@@ -39,6 +39,8 @@ class AdmitPatientStepDefinition: En {
     private var patientNextOfKinFactory = PatientNextOfKinFactoryStub()
     private var addressFactory = AddressFactoryStub()
     private var eventEmitter = EventEmitterStub()
+    private var patientDischargeRepository = DischargeRepositoryStub()
+    private var patientDischargeFactory = DischargeFactoryStub()
 
     private var admissionInfo: PatientAdmissionToDivisionDto? = null
     private var registeredNurse: Staff? = null
@@ -119,6 +121,8 @@ class AdmitPatientStepDefinition: En {
                 patientRepository,
                 patientAdmissionRepository,
                 patientNextOfKinRepository,
+                patientDischargeRepository,
+                patientDischargeFactory,
                 addressRepository,
                 externalDoctorRepository,
                 patientFactory,

@@ -2,6 +2,7 @@ package seg3x02.pms.application.usecase.implementation
 
 import seg3x02.pms.application.dtos.queries.PatientAdmissionFormRequestDto
 import seg3x02.pms.application.usecase.AdmitPatientFromRequestList
+import seg3x02.pms.domain.patient.facade.PatientFacade
 import java.util.*
 
 /**
