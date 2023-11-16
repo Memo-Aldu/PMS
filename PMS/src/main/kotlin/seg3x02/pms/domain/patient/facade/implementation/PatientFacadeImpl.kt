@@ -87,6 +87,14 @@ class PatientFacadeImpl(
         return patientRepository.findById(patientNAS) != null
     }
 
+    override fun addPrescriptionToPatient(patientNAS: String, prescriptionID: UUID) {
+        val patient = patientRepository.findById(patientNAS)
+        if (patient != null) {
+            patient.addPrescription(prescriptionID)
+            patientRepository.save(patient)
+        }
+    }
+
     private fun createAddress(address: AddressRegisterDto): Address {
         var patientAddress = addressFactory.createAddress(address)
         patientAddress =  addressRepository.save(patientAddress)
