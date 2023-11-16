@@ -81,12 +81,14 @@ class PatientFacadeImpl(
         return false
     }
 
-    override fun addPrescriptionToPatient(patientNAS: String, prescriptionID: UUID) {
+    override fun addPrescriptionToPatient(patientNAS: String, prescriptionID: UUID): Boolean {
         val patient = patientRepository.findById(patientNAS)
         if (patient != null) {
             patient.addPrescription(prescriptionID)
             patientRepository.save(patient)
+            return true
         }
+        return false
     }
 
     private fun createAddress(address: AddressRegisterDto): Address {
