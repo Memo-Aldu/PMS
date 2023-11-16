@@ -21,7 +21,17 @@ class MedicationPrescription(
     val methodOfAdministration: PrescriptionAdministrationMethodEnum,
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
-) {
+) 
+
+fun setPatient(patient: Patient) {
+    this.patient = patient
+    }
+
+fun setDoctor(doctor: Staff) {
+    this.doctor = doctor
+    }
+
+{
     lateinit var patient: Patient;
     lateinit var doctor: Staff;
 }

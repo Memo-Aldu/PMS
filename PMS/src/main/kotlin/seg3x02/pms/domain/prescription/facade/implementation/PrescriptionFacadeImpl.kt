@@ -23,12 +23,52 @@ class PrescriptionFacadeImpl(
     }
 
     override fun prescribeMedication(prescription: MedicationPrescriptionDto): UUID {
-        TODO("Not yet implemented")
-        // use factory to create medication prescription
-        // use repository to save medication prescription
-        // use event emitter to emit event
-        // return medication prescription id
+      // Ensure the patient and the doctor exists before proceeding
+        val patient: Patient
+        if (patientFacade.patientExists(prescriptionDto.patientNAS)) {
+            patient = patientFacade.getPatientByNAS(prescriptionDto.patientNAS)
+        } else {
+            throw IllegalArgumentException("Patient does not exist")
+            }
 
+        val doctor: Staff
+        if (patientFacade.staffExists(prescriptionDto.prescribingDoctorId)) {
+            doctor = patientFacade.getStaffById(prescriptionDto.prescribingDoctorId)
+        } else {
+            throw IllegalArgumentException("Doctor does not exist")
+                }
+
+        // Create medication prescription
+        val prescription = prescriptionFactory.createMedicationPrescription(prescriptionDto).apply {
+            setPatient(patient)
+            setDoctor(doctor)
+        }
+
+        // Save the prescription
+        val savedPrescription = prescriptionRepository.save(prescription)
+
+        // Add the prescription to the patient's list of prescriptions
+        patient.addPrescription(savedPrescription.id)
+
+        // Emit an event to signal that the prescription has been created
+        eventEmitter.emit(PrescriptionCreatedEvent(savedPrescription.id))
+
+        return savedPrescription.id
     }
+
+    // Helper methods to fetch patient and staff
+    private fun getPatientByNAS(patientNAS: String): Patient? {
+        return patientFacade.patientExists(patientNAS).let { exists ->
+            if (exists) patientFacade.getPatientByNAS(patientNAS) else null
+        }
+    }
+
+    private fun getStaffById(staffId: String): Staff? {
+        // Assuming there's a method to fetch staff by ID in the patient facade
+        return patientFacade.getStaffById(staffId)
+    }
+
+    // Assuming existence of PrescriptionCreatedEvent class
+    private data class PrescriptionCreatedEvent(val prescriptionId: UUID) : DomainEvent
 
 }
