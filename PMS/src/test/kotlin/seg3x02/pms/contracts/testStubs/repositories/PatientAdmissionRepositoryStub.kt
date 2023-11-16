@@ -16,5 +16,9 @@ class PatientAdmissionRepositoryStub: PatientAdmissionRepository {
     override fun findById(id: UUID): PatientAdmission? {
         return patientAdmissions[id]
     }
+    
+    override fun findByPatientNAS(nas: String): PatientAdmission? {
+        return patientAdmissions.values.find { it.patient.nas == nas }
+    }
 
 }
