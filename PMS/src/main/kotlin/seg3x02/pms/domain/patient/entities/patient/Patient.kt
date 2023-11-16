@@ -18,7 +18,10 @@ class Patient(
     var dob: Date,
     var gender: String,
     var maritalStatus: MaritalStatusEnum,
-) {
+
+)
+
+ {
     lateinit var address: Address;
     lateinit var nextOfKin: PatientNextOfKin;
     lateinit var externalDoctor: ExternalDoctor;
@@ -43,5 +46,9 @@ class Patient(
 
     fun setPatientAddress(address: Address) {
         this.address = address
+    }
+
+    fun addPrescription(prescription: UUID) {
+        this.prescriptions.add(prescription)
     }
 }

@@ -7,8 +7,8 @@ import seg3x02.pms.domain.prescription.facade.PrescriptionFacade
 import seg3x02.pms.domain.staff.facade.StaffFacade
 
 /**
- * @author : memo-aldu
- * @mailto : maldu064@uOttawa.ca
+ * @author : Ahmed ghadbawi
+ * @mailto : aghad014@uOttawa.ca
  * @created : 11/15/2023, Wednesday
  **/
 class PrescribeMedicationImpl(
@@ -20,12 +20,12 @@ class PrescribeMedicationImpl(
         val patientExists = patientFacade.doesPatientExist(prescription.patientNAS) // already defined in concrete class
         val medicationExists = prescriptionFacade.medicationExistsByDrugNumber(prescription.drugNumber) // already defined in concrete class
         val doctorID = staffFacade.getStaffById(prescription.prescribingDoctorId) // already defined in concrete class
+        // check if the patient exists, if the medication exists and if the doctor exists
         if (patientExists && medicationExists && doctorID != null) {
             val prescriptionID = prescriptionFacade.prescribeMedication(prescription) // this methode needs to check if the medication is already prescribed to the patient
-            // needs to be implemented
-            // add the prescription to the patient prescription list
-            // use the patient facade to add the prescription to the patient prescription list
-            // return true if the prescription was added to the patient prescription list
+            //  add the prescription to the patient's list of prescriptions and return true
+            patientFacade.addPrescriptionToPatient(prescription.patientNAS, prescriptionID)
+            return true
         }
         return false
     }
