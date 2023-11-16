@@ -14,10 +14,7 @@ import seg3x02.pms.domain.patient.facade.PatientFacade
 import seg3x02.pms.domain.patient.factory.AddressFactory
 import seg3x02.pms.domain.patient.factory.PatientFactory
 import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
-import seg3x02.pms.domain.patient.repositories.AddressRepository
-import seg3x02.pms.domain.patient.repositories.ExternalDoctorRepository
-import seg3x02.pms.domain.patient.repositories.PatientNextOfKinRepository
-import seg3x02.pms.domain.patient.repositories.PatientRepository
+import seg3x02.pms.domain.patient.repositories.*
 import java.util.*
 
 /**
@@ -27,6 +24,7 @@ import java.util.*
  **/
 class PatientFacadeImpl(
     private val patientRepository: PatientRepository,
+    private val patientAdmissionRepository: PatientAdmissionRepository,
     private val patientNextOfKinRepository: PatientNextOfKinRepository,
     private val addressRepository: AddressRepository,
     private val externalDoctorRepository: ExternalDoctorRepository,
@@ -83,6 +81,16 @@ class PatientFacadeImpl(
         return false
     }
 
+    override fun addPrescriptionToPatient(patientNAS: String, prescriptionID: UUID): Boolean {
+        val patient = patientRepository.findById(patientNAS)
+        if (patient != null) {
+            patient.addPrescription(prescriptionID)
+            patientRepository.save(patient)
+            return true
+        }
+        return false
+    }
+
     private fun createAddress(address: AddressRegisterDto): Address {
         var patientAddress = addressFactory.createAddress(address)
         patientAddress =  addressRepository.save(patientAddress)
@@ -95,5 +103,16 @@ class PatientFacadeImpl(
         patientNextOfKin = patientNextOfKinRepository.save(patientNextOfKin)
         eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientNextOfKin.id))
         return patientNextOfKin;
+    }
+    override fun isPatientAdmitted(patientNAS: String): Boolean {
+        val p = patientAdmissionRepository.findByPatientNAS(patientNAS)
+        if (p != null)
+            return true
+        return false
+    }
+    override fun doesPatientExist(patientNAS: String): Boolean{
+        if(patientRepository.findById(patientNAS) == null)
+            return false
+        return true
     }
 }

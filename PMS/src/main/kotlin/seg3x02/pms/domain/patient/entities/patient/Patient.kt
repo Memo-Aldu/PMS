@@ -3,6 +3,7 @@ package seg3x02.pms.domain.patient.entities.patient
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.enums.MaritalStatusEnum
 import java.sql.Date
+import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -17,10 +18,14 @@ class Patient(
     var dob: Date,
     var gender: String,
     var maritalStatus: MaritalStatusEnum,
-) {
+
+)
+
+ {
     lateinit var address: Address;
     lateinit var nextOfKin: PatientNextOfKin;
     lateinit var externalDoctor: ExternalDoctor;
+    var prescriptions: MutableList<UUID> = ArrayList();
 
     fun update(patient: Patient) {
         this.firstName = patient.firstName
@@ -41,5 +46,9 @@ class Patient(
 
     fun setPatientAddress(address: Address) {
         this.address = address
+    }
+
+    fun addPrescription(prescription: UUID) {
+        this.prescriptions.add(prescription)
     }
 }
