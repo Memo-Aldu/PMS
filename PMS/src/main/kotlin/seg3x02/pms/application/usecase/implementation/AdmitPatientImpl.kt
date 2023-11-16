@@ -12,9 +12,10 @@ class AdmitPatientImpl(
 ) : AdmitPatient {
 
     override fun admitPatientToDivision(patient: PatientAdmissionToDivisionDto): UUID? {
+        val doesPatientExist = patientFacade.doesPatientExist(patient.patientNAS)
         val doesDivisionExist = divisionFacade.doesDivisionExist(patient.divisonId)
         val availableRoomsAndBeds = divisionFacade.hasAvailableRooms(patient.divisonId)
-        if (availableRoomsAndBeds!! && doesDivisionExist) {
+        if (availableRoomsAndBeds!! && doesDivisionExist && doesPatientExist) {
             divisionFacade.admitPatient(patient)
         }
         return null
