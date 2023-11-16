@@ -14,5 +14,5 @@ interface RequestPatientAdmission {
      * @param admissionRequest PatientAdmissionRequestDto
      * @return UUID? patient admission request id if patient was admitted, null otherwise
      */
-    fun requestPatientAdmission(admissionRequest: PatientAdmissionRequestDto) : UUID?
+    fun requestPatientAdmission(admissionRequestDto: PatientAdmissionRequestDto) : UUID?
 }

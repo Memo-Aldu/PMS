@@ -1,6 +1,7 @@
 package seg3x02.pms.application.usecase
 
-import seg3x02.pms.application.dtos.queries.PatientAdmissionRequestDto
+import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
+import java.util.*
 
 /**
  * @author : memo-aldu
@@ -13,5 +14,5 @@ interface AdmitPatient {
      * @param patient PatientAdmissionRequestDto
      * @return Boolean true if patient was admitted, false otherwise
      */
-    fun admitPatientToDivision(patient: PatientAdmissionRequestDto) : Boolean
+    fun admitPatientToDivision(patient: PatientAdmissionToDivisionDto) :  UUID?
 }

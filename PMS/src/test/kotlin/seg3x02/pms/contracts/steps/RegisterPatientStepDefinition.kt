@@ -34,6 +34,7 @@ class RegisterPatientStepDefinition: En {
     private var patientNextOfKinFactory = PatientNextOfKinFactoryStub()
     private var addressFactory = AddressFactoryStub()
     private var eventEmitter = EventEmitterStub()
+    private var patientAdmissionRepository = PatientAdmissionRepositoryStub()
 
     private var registeredNurse: Staff? = null
     private var patient: Patient? = null
@@ -88,6 +89,7 @@ class RegisterPatientStepDefinition: En {
             // Write code here that turns the phrase above into concrete actions
             val patientFacade = PatientFacadeImpl(
                 patientRepository,
+                patientAdmissionRepository,
                 patientNextOfKinRepository,
                 addressRepository,
                 externalDoctorRepository,
