@@ -17,7 +17,7 @@ class PrescribeMedicationImpl(
     private val staffFacade: StaffFacade
 ): PrescribeMedication {
     override fun prescribeMedication(prescription: MedicationPrescriptionDto): Boolean {
-        val patientExists = patientFacade.patientExists(prescription.patientNAS) // already defined in concrete class
+        val patientExists = patientFacade.doesPatientExist(prescription.patientNAS) // already defined in concrete class
         val medicationExists = prescriptionFacade.medicationExistsByDrugNumber(prescription.drugNumber) // already defined in concrete class
         val doctorID = staffFacade.getStaffById(prescription.prescribingDoctorId) // already defined in concrete class
         if (patientExists && medicationExists && doctorID != null) {
