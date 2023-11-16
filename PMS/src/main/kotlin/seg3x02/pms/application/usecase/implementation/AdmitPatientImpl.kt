@@ -11,15 +11,12 @@ class AdmitPatientImpl(
     private val divisionFacade: DivisionFacade
 ) : AdmitPatient {
 
-    override fun admitPatientToDivision(patientAdmissionToDivisionDto: PatientAdmissionToDivisionDto): UUID? {
-        val availableRoomsAndBeds = divisionFacade.hasAvailableRooms(patientAdmissionToDivisionDto.divisonId)
-        val doesDivisionExist = divisionFacade.doesDivisionExist(patientAdmissionToDivisionDto.divisonId)
-        if (!availableRoomsAndBeds!! || !doesDivisionExist) {
-            return null
+    override fun admitPatientToDivision(patient: PatientAdmissionToDivisionDto): UUID? {
+        val doesDivisionExist = divisionFacade.doesDivisionExist(patient.divisonId)
+        val availableRoomsAndBeds = divisionFacade.hasAvailableRooms(patient.divisonId)
+        if (availableRoomsAndBeds!! && doesDivisionExist) {
+            divisionFacade.admitPatient(patient)
         }
-        else
-            divisionFacade.admitPatient(patientAdmissionToDivisionDto)
-
         return null
     }
 }

@@ -1,10 +1,18 @@
 package seg3x02.pms.contracts.steps
 
 import seg3x02.pms.application.dtos.queries.AddressRegisterDto
+import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
 import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientRegisterDto
+import seg3x02.pms.domain.division.entities.Bed
+import seg3x02.pms.domain.division.entities.Division
+import seg3x02.pms.domain.division.entities.Room
+import seg3x02.pms.domain.division.enums.BedStatus
+import seg3x02.pms.domain.division.enums.DivisionStatus
+import seg3x02.pms.domain.division.enums.RoomStatus
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
+import seg3x02.pms.domain.patient.entities.patient.Patient
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.patient.enums.PatientKinRelationshipEnum
 import seg3x02.pms.domain.patient.repositories.ExternalDoctorRepository
@@ -111,5 +119,46 @@ fun createAddress(): Address {
         "Ottawa",
         "Canada",
         "K1A 0G9"
+    )
+}
+
+fun createDivision(status: DivisionStatus): Division {
+    val d =  Division(
+        UUID.randomUUID(),
+        "Emergency",
+        "Emergency",
+        1,
+        "Emergency"
+    )
+    d.setDivisionStatus(status)
+    return d
+}
+
+fun createRoom(division: Division, roomStatus: RoomStatus): Room {
+    val r = Room(
+        UUID.randomUUID(),
+    )
+    r.setRoomStatus(roomStatus)
+    return r
+}
+
+fun createBed(room: Room, bedStatus: BedStatus): Bed {
+    val b = Bed(
+        UUID.randomUUID(),
+    )
+    b.setBedStatus(bedStatus)
+    return b
+}
+
+fun createAdmissionInfo(patient: Patient, division: Division, room: Room, bed: Bed): PatientAdmissionToDivisionDto {
+    return PatientAdmissionToDivisionDto(
+        UUID.randomUUID(),
+        patient.nas,
+        division.id,
+        UUID.randomUUID().toString(),
+        UUID.randomUUID().toString(),
+        room.id,
+        bed.id,
+        null
     )
 }

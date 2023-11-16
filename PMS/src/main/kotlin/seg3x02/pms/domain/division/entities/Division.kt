@@ -2,9 +2,6 @@ package seg3x02.pms.domain.division.entities
 
 import seg3x02.pms.domain.division.enums.DivisionStatus
 import seg3x02.pms.domain.staff.entities.Staff
-import seg3x02.pms.domain.division.entities.Room
-import seg3x02.pms.domain.division.entities.AdmissionRequest
-import seg3x02.pms.domain.division.enums.RoomStatus
 import java.util.UUID
 
 /**
@@ -28,5 +25,9 @@ class Division(
 
     fun setDivisionStatus(status: DivisionStatus){
         this.divisionStatus = status
+    }
+
+    fun addPatientAdmissionRequest(patientNAS: String){
+        patientAdmissionRequestList.add(patientNAS)
     }
 }

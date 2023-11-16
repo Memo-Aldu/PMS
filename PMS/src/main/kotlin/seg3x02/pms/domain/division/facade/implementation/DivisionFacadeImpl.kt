@@ -16,7 +16,7 @@ import seg3x02.pms.domain.patient.factory.PatientAdmissionFactory
 import seg3x02.pms.domain.patient.repositories.PatientAdmissionRepository
 import java.util.*
 
-class DivisionFacadeImpl (
+class DivisionFacadeImpl(
     private val divisionRepository: DivisionRepository,
     private val patientAdmissionRepository: PatientAdmissionRepository,
     private val patientAdmissionRequestFactory: PatientAdmissionRequestFactory,
@@ -26,30 +26,29 @@ class DivisionFacadeImpl (
     private val roomRepository: RoomRepository,
 
     ) : DivisionFacade {
-    override fun admitPatient(admissionToDivision: PatientAdmissionToDivisionDto): Boolean {
-        val division = divisionRepository.findById(admissionToDivision.divisonId)
-        val bed = bedRepository.findById(admissionToDivision.bedId)
-        val room = roomRepository.findById(admissionToDivision.roomId)
+    override fun admitPatient(admissionRequest: PatientAdmissionToDivisionDto): Boolean {
+        val division = divisionRepository.findById(admissionRequest.divisonId)
+        val bed = bedRepository.findById(admissionRequest.bedId)
+        val room = roomRepository.findById(admissionRequest.roomId)
         if(bed == null || room == null || division == null || bed.bedStatus == BedStatus.TAKEN)
             return false
-        val admission = patientAdmissionFactory.createPatientAdmission(admissionToDivision)
+        val admission = patientAdmissionFactory.createPatientAdmission(admissionRequest)
         patientAdmissionRepository.save(admission)
         bed.setBedStatus(BedStatus.TAKEN)
         bedRepository.save(bed)
         if(!room.hasAvailableBeds())
             room.setRoomStatus(RoomStatus.COMPLETE)
             roomRepository.save(room)
-        if(!hasAvailableRooms(admissionToDivision.divisonId)!! )
+        if(!hasAvailableRooms(admissionRequest.divisonId)!! )
             division.setDivisionStatus(DivisionStatus.COMPLETE)
         divisionRepository.save(division)
-
         return true
     }
-    override fun requestPatientAdmission(requestDto: PatientAdmissionRequestDto): Boolean {
-        val division = divisionRepository.findById(requestDto.divisionId)
-        val admissionRequestEntity = patientAdmissionRequestFactory.createPatientAdmissionRequest(requestDto)
+    override fun requestPatientAdmission(admissionRequest: PatientAdmissionRequestDto): Boolean {
+        val division = divisionRepository.findById(admissionRequest.divisionId)
+        val admissionRequestEntity = patientAdmissionRequestFactory.createPatientAdmissionRequest(admissionRequest)
         patientAdmissionRequestRepository.save(admissionRequestEntity)
-        division?.patientAdmissionRequestList?.add(requestDto.patientNAS)
+        division?.addPatientAdmissionRequest(admissionRequest.patientNAS)
         return true
 
     }
@@ -65,8 +64,6 @@ class DivisionFacadeImpl (
         }
     }
     override fun doesDivisionExist(divisionId: UUID): Boolean{
-        if(divisionRepository.findById(divisionId) == null)
-            return false
-        return true
+        return divisionRepository.findById(divisionId) != null
     }
 }
