@@ -12,6 +12,6 @@ import java.util.*
  **/
 class AdmitPatientFromRequestListImpl: AdmitPatientFromRequestList {
     override fun admitPatientFromRequestList(patientToAdmit: PatientAdmissionFormRequestDto): UUID? {
-        return PatientFacade.admitPatient(patientToAdmit)
+        TODO("Not yet implemented")
     }
 }

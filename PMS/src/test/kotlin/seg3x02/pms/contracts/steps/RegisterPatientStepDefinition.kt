@@ -6,6 +6,7 @@ import seg3x02.pms.application.dtos.queries.PatientRegisterDto
 import seg3x02.pms.application.usecase.RegisterPatient
 import seg3x02.pms.application.usecase.implementation.RegisterPatientImpl
 import seg3x02.pms.contracts.testStubs.factories.AddressFactoryStub
+import seg3x02.pms.contracts.testStubs.factories.DischargeFactoryStub
 import seg3x02.pms.contracts.testStubs.factories.PatientFactoryStub
 import seg3x02.pms.contracts.testStubs.factories.PatientNextOfKinFactoryStub
 import seg3x02.pms.contracts.testStubs.repositories.*
@@ -35,6 +36,8 @@ class RegisterPatientStepDefinition: En {
     private var addressFactory = AddressFactoryStub()
     private var eventEmitter = EventEmitterStub()
     private var patientAdmissionRepository = PatientAdmissionRepositoryStub()
+    private var patientDischargeRepository = DischargeRepositoryStub()
+    private var patientDischargeFactory = DischargeFactoryStub()
 
     private var registeredNurse: Staff? = null
     private var patient: Patient? = null
@@ -91,6 +94,8 @@ class RegisterPatientStepDefinition: En {
                 patientRepository,
                 patientAdmissionRepository,
                 patientNextOfKinRepository,
+                patientDischargeRepository,
+                patientDischargeFactory,
                 addressRepository,
                 externalDoctorRepository,
                 patientFactory,

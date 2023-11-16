@@ -10,17 +10,14 @@ import seg3x02.pms.domain.patient.facade.PatientFacade
  * @created : 11/12/2023, Sunday
  **/
 class DischargePatientImpl(
-    private val patientFacade: PatientFacade
-    private val patientRepository: PatientRepository
+    private val patientFacade: PatientFacade,
 ): DischargePatient {
     override fun dischargePatient(patient: PatientDischargeDto): Boolean {
-        val patientToBeDischarged = patientFacade.patientRepository.findById(patient.patientNAS)
-        if (patientToBeDischarged != null) {
-            patientToBeDischarged.dischargePatient(patient)
-            patientRepository.save(patientToBeDischarged)
+        val patientExist = patientFacade.doesPatientExist(patient.patientNAS)
+        if (patientExist) {
+            patientFacade.dischargePatient(patient)
             return true
-        } else {
-            return false
         }
+        return false
     }
 }

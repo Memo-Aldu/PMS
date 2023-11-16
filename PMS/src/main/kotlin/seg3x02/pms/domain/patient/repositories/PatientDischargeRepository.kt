@@ -1,5 +1,8 @@
 package seg3x02.pms.domain.patient.repositories
 
+import seg3x02.pms.domain.patient.entities.admission.PatientDischarge
+import java.util.*
+
 /**
  * @author : memo-aldu
  * @mailto : maldu064@uOttawa.ca
