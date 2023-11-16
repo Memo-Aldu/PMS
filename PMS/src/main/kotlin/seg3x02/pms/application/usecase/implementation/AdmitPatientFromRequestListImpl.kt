@@ -12,11 +12,6 @@ import java.util.*
  **/
 class AdmitPatientFromRequestListImpl: AdmitPatientFromRequestList {
     override fun admitPatientFromRequestList(patientToAdmit: PatientAdmissionFormRequestDto): UUID? {
-        val accountExist = patientRepository.findById(patientToAdmit.nas)
-        if(accountExist != null) {
-            return patientFacade.admitPatientToDivision(patientToAdmit)
-        } else {
-            return null
-        }
+        return PatientFacade.admitPatient(patientToAdmit)
     }
 }
