@@ -6,6 +6,7 @@ import java.util.UUID
  * @created : 2023-10-19, Thursday
  **/
 data class PatientAdmissionToDivisionDto(
+        val admissionId: UUID,
         val patientNAS: String,
         val divisonId: UUID,
         val requestingChargedNurseNAS: String,

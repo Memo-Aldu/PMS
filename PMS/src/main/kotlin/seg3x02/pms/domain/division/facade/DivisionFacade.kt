@@ -9,7 +9,7 @@ import java.util.UUID
 interface DivisionFacade {
     fun admitPatient(admissionRequest: PatientAdmissionToDivisionDto): Boolean
     fun requestPatientAdmission( admissionRequest: PatientAdmissionRequestDto): Boolean
-    fun hasAvailableRooms(divisionId: UUID): Boolean
-    fun getNotCompleteRooms(divisionId: UUID): List<Room>
+    fun hasAvailableRooms(divisionId: UUID): Boolean?
+    fun getNotCompleteRooms(divisionId: UUID): List<Room>?
     fun doesDivisionExist(divisionId: UUID): Boolean
 }

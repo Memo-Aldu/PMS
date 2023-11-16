@@ -13,9 +13,8 @@ class AdmitPatientImpl(
 
     override fun admitPatientToDivision(patientAdmissionToDivisionDto: PatientAdmissionToDivisionDto): UUID? {
         val availableRoomsAndBeds = divisionFacade.hasAvailableRooms(patientAdmissionToDivisionDto.divisonId)
-        val doesPatientExist = patientFacade.isPatientAdmitted(patientAdmissionToDivisionDto.patientNAS)
         val doesDivisionExist = divisionFacade.doesDivisionExist(patientAdmissionToDivisionDto.divisonId)
-        if (!availableRoomsAndBeds || !doesPatientExist || !doesDivisionExist) {
+        if (!availableRoomsAndBeds!! || !doesDivisionExist) {
             return null
         }
         else

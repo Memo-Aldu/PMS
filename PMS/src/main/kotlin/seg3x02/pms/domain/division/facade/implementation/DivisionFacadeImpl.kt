@@ -36,12 +36,10 @@ class DivisionFacadeImpl (
         patientAdmissionRepository.save(admission)
         bed.setBedStatus(BedStatus.TAKEN)
         bedRepository.save(bed)
-        var hasChanged = false
         if(!room.hasAvailableBeds())
             room.setRoomStatus(RoomStatus.COMPLETE)
             roomRepository.save(room)
-            hasChanged = true
-        if(!hasAvailableRooms(admissionToDivision.divisonId) || hasChanged)
+        if(!hasAvailableRooms(admissionToDivision.divisonId)!! )
             division.setDivisionStatus(DivisionStatus.COMPLETE)
         divisionRepository.save(division)
 
@@ -51,18 +49,18 @@ class DivisionFacadeImpl (
         val division = divisionRepository.findById(requestDto.divisionId)
         val admissionRequestEntity = patientAdmissionRequestFactory.createPatientAdmissionRequest(requestDto)
         patientAdmissionRequestRepository.save(admissionRequestEntity)
-        division.patientAdmissionRequestList.add(requestDto.patientNAS)
+        division?.patientAdmissionRequestList?.add(requestDto.patientNAS)
         return true
 
     }
-    override fun hasAvailableRooms(divisionId: UUID): Boolean{
+    override fun hasAvailableRooms(divisionId: UUID): Boolean? {
         val division = divisionRepository.findById(divisionId)
-        return division.rooms.any{ room ->
+        return division?.rooms?.any{ room ->
             room.roomStatus == RoomStatus.NOTCOMPLETE}
     }
-    override fun getNotCompleteRooms(divisionId: UUID): List<Room> {
+    override fun getNotCompleteRooms(divisionId: UUID): List<Room>? {
         val division = divisionRepository.findById(divisionId)
-        return division.rooms.filter { room ->
+        return division?.rooms?.filter { room ->
             room.roomStatus == RoomStatus.NOTCOMPLETE
         }
     }
