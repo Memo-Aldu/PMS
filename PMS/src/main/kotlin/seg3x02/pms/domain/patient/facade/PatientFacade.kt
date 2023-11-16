@@ -15,4 +15,5 @@ interface PatientFacade {
     fun registerPatient(patient: PatientRegisterDto): String?
     fun updatePatientFile(updatedPatient: PatientUpdateDto, patientNAS: String): Boolean
     fun doesPatientExist(patientNAS: String): Boolean
+    fun isPatientAdmitted(patientNAS: String): Boolean
 }

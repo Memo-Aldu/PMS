@@ -10,5 +10,6 @@ import java.util.UUID
  **/
 interface PatientAdmissionRepository {
     fun findById(id: UUID): PatientAdmission?
+    fun findByPatientNAS(nas: String): PatientAdmission?
     fun save(patientAdmission: PatientAdmission): PatientAdmission
 }
