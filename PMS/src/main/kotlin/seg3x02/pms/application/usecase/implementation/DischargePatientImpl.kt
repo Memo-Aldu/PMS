@@ -14,7 +14,7 @@ class DischargePatientImpl(
     private val patientRepository: PatientRepository
 ): DischargePatient {
     override fun dischargePatient(patient: PatientDischargeDto): Boolean {
-        val patientToBeDischarged = patientFacade.patientRepository.findById(patient.patientId)
+        val patientToBeDischarged = patientFacade.patientRepository.findById(patient.patientNAS)
         if (patientToBeDischarged != null) {
             patientToBeDischarged.dischargePatient(patient)
             patientRepository.save(patientToBeDischarged)
