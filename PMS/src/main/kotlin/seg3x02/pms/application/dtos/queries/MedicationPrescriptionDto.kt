@@ -9,6 +9,8 @@ import java.time.LocalDateTime
  * @created : 2023-10-19, Thursday
  **/
 data class MedicationPrescriptionDto(
+    val patientNAS: String,
+    val prescribingDoctorId: String,
     val drugNumber: Long,
     val drugName: String,
     val uniteByDay: Int,
