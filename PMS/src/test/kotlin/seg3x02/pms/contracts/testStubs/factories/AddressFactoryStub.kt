@@ -13,7 +13,6 @@ import java.util.*
 class AddressFactoryStub: AddressFactory {
     override fun createAddress(address: AddressRegisterDto): Address {
         return Address(
-            UUID.randomUUID(),
             address.street,
             address.city,
             address.country,

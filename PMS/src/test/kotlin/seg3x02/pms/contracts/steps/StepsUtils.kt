@@ -1,9 +1,6 @@
 package seg3x02.pms.contracts.steps
 
-import seg3x02.pms.application.dtos.queries.AddressRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
-import seg3x02.pms.application.dtos.queries.PatientNextOfKinRegisterDto
-import seg3x02.pms.application.dtos.queries.PatientRegisterDto
+import seg3x02.pms.application.dtos.queries.*
 import seg3x02.pms.domain.division.entities.Bed
 import seg3x02.pms.domain.division.entities.Division
 import seg3x02.pms.domain.division.entities.Room
@@ -54,7 +51,7 @@ fun createUserAccount(): UserAccount {
     return user
 }
 
-fun createPatientInfo(externalDoctorId : UUID): PatientRegisterDto {
+fun createPatientInfo(): PatientRegisterDto {
     return PatientRegisterDto(
         "123456789",
         "Memo",
@@ -63,7 +60,7 @@ fun createPatientInfo(externalDoctorId : UUID): PatientRegisterDto {
         Date.valueOf("2023-11-08"),
         "M",
         seg3x02.pms.application.enums.MaritalStatusEnum.MARRIED,
-        externalDoctorId,
+        createExternalDoctorDto(),
         createAddressDto(),
         createPatientNextOfKinDto(),
     )
@@ -78,6 +75,15 @@ fun createAddressDto(): AddressRegisterDto {
     )
 }
 
+fun createExternalDoctorDto(): ExternalDoctorDto {
+    return ExternalDoctorDto(
+        "John",
+        "Doe",
+        "123-456-7770",
+        "example@gmail.com"
+    )
+}
+
 fun createPatientNextOfKinDto(): PatientNextOfKinRegisterDto {
      return PatientNextOfKinRegisterDto(
         "Jon",
@@ -88,15 +94,13 @@ fun createPatientNextOfKinDto(): PatientNextOfKinRegisterDto {
     )
 }
 
-fun createExternalDoctor(repository: ExternalDoctorRepository): ExternalDoctor {
-    val dco =  ExternalDoctor(
-        UUID.randomUUID(),
+fun createExternalDoctor(): ExternalDoctor {
+    return ExternalDoctor(
         "John",
         "Doe",
         "123-456-7770",
         "blah@gmail.com"
     )
-    return repository.save(dco)
 }
 
 fun createNextOfKin(): PatientNextOfKin {
@@ -114,7 +118,6 @@ fun createNextOfKin(): PatientNextOfKin {
 
 fun createAddress(): Address {
     return Address(
-        UUID.randomUUID(),
         "123 Fake Street",
         "Ottawa",
         "Canada",

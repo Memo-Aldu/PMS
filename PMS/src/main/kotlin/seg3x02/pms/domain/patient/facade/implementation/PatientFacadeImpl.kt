@@ -3,16 +3,14 @@ package seg3x02.pms.domain.patient.facade.implementation
 import seg3x02.pms.application.dtos.queries.*
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.entities.patient.Address
+import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.patient.events.DischargeCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientNextOfKinCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientUpdatedEvent
 import seg3x02.pms.domain.patient.facade.PatientFacade
-import seg3x02.pms.domain.patient.factory.AddressFactory
-import seg3x02.pms.domain.patient.factory.PatientDischargeFactory
-import seg3x02.pms.domain.patient.factory.PatientFactory
-import seg3x02.pms.domain.patient.factory.PatientNextOfKinFactory
+import seg3x02.pms.domain.patient.factory.*
 import seg3x02.pms.domain.patient.repositories.*
 import java.util.*
 
@@ -27,9 +25,8 @@ class PatientFacadeImpl(
     private val patientNextOfKinRepository: PatientNextOfKinRepository,
     private val dischargeRepository: PatientDischargeRepository,
     private val dischargeFactory: PatientDischargeFactory,
-    private val addressRepository: AddressRepository,
-    private val externalDoctorRepository: ExternalDoctorRepository,
     private val patientFactory: PatientFactory,
+    private val externalDoctorFactory: ExternalDoctorFactory,
     private val patientNextOfKinFactory: PatientNextOfKinFactory,
     private val addressFactory: AddressFactory,
     private var eventEmitter: DomainEventEmitter,
@@ -42,7 +39,7 @@ class PatientFacadeImpl(
         }
         val patientNextOfKin: PatientNextOfKin = createNextOfKin(patient.nextOfKin)
         val patientAddress: Address = createAddress(patient.address)
-        val externalDoctor = externalDoctorRepository.findById(patient.externalDoctorID)
+        val externalDoctor: ExternalDoctor = createExternalDoctor(patient.externalDoctor)
 
         if (patientNextOfKin === null || patientAddress == null || externalDoctor == null) {
             return null
@@ -69,11 +66,9 @@ class PatientFacadeImpl(
                 val nextOfKin = createNextOfKin(updatedPatient.nextOfKin!!)
                 patient.setPatientNextOfKin(nextOfKin)
             }
-            if (updatedPatient.externalDoctorID != null) {
-                val externalDoctor = externalDoctorRepository.findById(updatedPatient.externalDoctorID)
-                if (externalDoctor != null) {
-                    patient.setPatientExternalDoctor(externalDoctor)
-                }
+            if (updatedPatient.externalDoctor != null) {
+                val externalDoctor = createExternalDoctor(updatedPatient.externalDoctor)
+                patient.setPatientExternalDoctor(externalDoctor)
             }
             patient = patientRepository.save(patient)
             eventEmitter.emit(PatientUpdatedEvent(UUID.randomUUID(), Date(), patient.nas))
@@ -104,10 +99,11 @@ class PatientFacadeImpl(
     }
 
     private fun createAddress(address: AddressRegisterDto): Address {
-        var patientAddress = addressFactory.createAddress(address)
-        patientAddress =  addressRepository.save(patientAddress)
-        eventEmitter.emit(PatientNextOfKinCreatedEvent(UUID.randomUUID(), Date(), patientAddress.id))
-        return patientAddress
+        return addressFactory.createAddress(address)
+    }
+
+    private fun createExternalDoctor(externalDoctor: ExternalDoctorDto): ExternalDoctor {
+        return externalDoctorFactory.createExternalDoctor(externalDoctor)
     }
 
     private fun createNextOfKin(nextOfKin: PatientNextOfKinRegisterDto): PatientNextOfKin {

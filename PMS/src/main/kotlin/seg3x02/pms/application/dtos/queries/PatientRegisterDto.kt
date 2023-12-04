@@ -2,7 +2,6 @@ package seg3x02.pms.application.dtos.queries
 
 import seg3x02.pms.application.enums.MaritalStatusEnum
 import java.sql.Date
-import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -17,7 +16,7 @@ data class PatientRegisterDto(
     val dob: Date,
     val gender: String,
     val maritalStatus: MaritalStatusEnum,
-    var externalDoctorID: UUID,
+    var externalDoctor: ExternalDoctorDto,
     var address: AddressRegisterDto,
     var nextOfKin: PatientNextOfKinRegisterDto
 )

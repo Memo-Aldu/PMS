@@ -1,13 +1,11 @@
-package seg3x02.pms.domain.patient.entities.patient
-
-import java.util.UUID
+package seg3x02.pms.application.dtos.queries
 
 /**
  * @author : memo-aldu
  * @mailto : maldu064@uOttawa.ca
- * @created : 11/12/2023, Sunday
+ * @created : 12/4/2023, Monday
  **/
-class ExternalDoctor(
+data class ExternalDoctorDto(
     val firstName: String,
     val lastName: String,
     val phoneNumber: String,
