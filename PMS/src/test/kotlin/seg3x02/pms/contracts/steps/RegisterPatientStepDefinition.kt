@@ -2,13 +2,11 @@ package seg3x02.pms.contracts.steps
 
 import io.cucumber.java8.En
 import io.cucumber.java8.Scenario
+import seg3x02.pms.application.dtos.queries.ExternalDoctorDto
 import seg3x02.pms.application.dtos.queries.PatientRegisterDto
 import seg3x02.pms.application.usecase.RegisterPatient
 import seg3x02.pms.application.usecase.implementation.RegisterPatientImpl
-import seg3x02.pms.contracts.testStubs.factories.AddressFactoryStub
-import seg3x02.pms.contracts.testStubs.factories.DischargeFactoryStub
-import seg3x02.pms.contracts.testStubs.factories.PatientFactoryStub
-import seg3x02.pms.contracts.testStubs.factories.PatientNextOfKinFactoryStub
+import seg3x02.pms.contracts.testStubs.factories.*
 import seg3x02.pms.contracts.testStubs.repositories.*
 import seg3x02.pms.contracts.testStubs.services.EventEmitterStub
 import seg3x02.pms.domain.patient.entities.patient.Address
@@ -27,13 +25,12 @@ import java.util.*
 
 class RegisterPatientStepDefinition: En {
     private var patientRepository = PatientRepositoryStub()
-    private var addressRepository = AddressRepositoryStub()
     private var patientNextOfKinRepository = PatientNextOfKinRepositoryStub()
-    private var externalDoctorRepository = ExternalDoctorRepositoryStub()
     private var staffRepository = StaffRepositoryStub()
     private var patientFactory = PatientFactoryStub()
     private var patientNextOfKinFactory = PatientNextOfKinFactoryStub()
     private var addressFactory = AddressFactoryStub()
+    private var externalDoctorFactory = ExternalDoctorFactoryStub()
     private var eventEmitter = EventEmitterStub()
     private var patientAdmissionRepository = PatientAdmissionRepositoryStub()
     private var patientDischargeRepository = DischargeRepositoryStub()
@@ -54,7 +51,7 @@ class RegisterPatientStepDefinition: En {
         And("the staff member registered") {
             // Write code here that turns the phrase above into concrete actions
             registeredNurse = createStaff(staffRepository)
-            externalDoctor = createExternalDoctor(externalDoctorRepository)
+            externalDoctor = createExternalDoctor()
             assert(registeredNurse != null)
         }
         And("staff member is logged in") {
@@ -63,12 +60,12 @@ class RegisterPatientStepDefinition: En {
         }
         And("the patient is not registered") {
             // Write code here that turns the phrase above into concrete actions
-            patientInfo = createPatientInfo(externalDoctor!!.id)
+            patientInfo = createPatientInfo()
             assert(patientRepository.findById(patientInfo!!.nas) == null)
         }
         And("the patient is registered") {
             // Write code here that turns the phrase above into concrete actions
-            patientInfo = createPatientInfo(externalDoctor!!.id)
+            patientInfo = createPatientInfo()
             patientCreatedID = patientRepository.save(patientFactory.createPatient(patientInfo!!)).nas
             assert(patientCreatedID != null)
         }
@@ -78,15 +75,20 @@ class RegisterPatientStepDefinition: En {
                     && patientInfo!!.firstName != null && patientInfo!!.firstName != ""
                     && patientInfo!!.lastName != null && patientInfo!!.lastName != ""
                     && patientInfo!!.phoneNumber != null && patientInfo!!.phoneNumber != ""
-                    && patientInfo!!.address != null && patientInfo!!.externalDoctorID != null
+                    && patientInfo!!.address != null && patientInfo!!.externalDoctor != null
                     && patientInfo!!.nextOfKin != null)
         }
         And ("the patient's details are invalid") {
             // set nas to null
-            val oldExternalDoctorID = patientInfo!!.externalDoctorID
-            val newExternalDoctorID = UUID.randomUUID()
-            patientInfo!!.externalDoctorID = newExternalDoctorID
-            assert(newExternalDoctorID != oldExternalDoctorID)
+            val oldExternalDoctor = patientInfo!!.externalDoctor
+            val newExternalDoctor = ExternalDoctorDto(
+                "Dr. Strange",
+                "123-456-7890",
+                "1234567889",
+                "email@test.com"
+            )
+            patientInfo!!.externalDoctor = newExternalDoctor
+            assert(newExternalDoctor != oldExternalDoctor)
         }
         When("the application command registerPatient is invoked") {
             // Write code here that turns the phrase above into concrete actions
@@ -96,9 +98,8 @@ class RegisterPatientStepDefinition: En {
                 patientNextOfKinRepository,
                 patientDischargeRepository,
                 patientDischargeFactory,
-                addressRepository,
-                externalDoctorRepository,
                 patientFactory,
+                externalDoctorFactory,
                 patientNextOfKinFactory,
                 addressFactory,
                 eventEmitter
@@ -132,13 +133,12 @@ class RegisterPatientStepDefinition: En {
 
        After {_: Scenario ->
             patientRepository = PatientRepositoryStub()
-            addressRepository = AddressRepositoryStub()
             patientNextOfKinRepository = PatientNextOfKinRepositoryStub()
-            externalDoctorRepository = ExternalDoctorRepositoryStub()
             staffRepository = StaffRepositoryStub()
             patientFactory = PatientFactoryStub()
             patientNextOfKinFactory = PatientNextOfKinFactoryStub()
             addressFactory = AddressFactoryStub()
+            externalDoctorFactory = ExternalDoctorFactoryStub()
             eventEmitter = EventEmitterStub()
 
             registeredNurse = null
