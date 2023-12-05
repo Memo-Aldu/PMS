@@ -2,16 +2,20 @@ package seg3x02.pms.domain.division.facade.implementation
 
 import seg3x02.pms.application.dtos.queries.PatientAdmissionRequestDto
 import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
+import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.division.entities.Room
 import seg3x02.pms.domain.division.enums.BedStatus
 import seg3x02.pms.domain.division.enums.DivisionStatus
 import seg3x02.pms.domain.division.enums.RoomStatus
+import seg3x02.pms.domain.division.events.PatientRequestAdmissionCreatedEvent
 import seg3x02.pms.domain.division.facade.DivisionFacade
 import seg3x02.pms.domain.division.factory.PatientAdmissionRequestFactory
 import seg3x02.pms.domain.division.repositories.BedRepository
 import seg3x02.pms.domain.division.repositories.DivisionRepository;
 import seg3x02.pms.domain.division.repositories.PatientAdmissionRequestRepository
 import seg3x02.pms.domain.division.repositories.RoomRepository
+import seg3x02.pms.domain.patient.events.DischargeCreatedEvent
+import seg3x02.pms.domain.patient.events.PatientAdmissionCreatedEvent
 import seg3x02.pms.domain.patient.factory.PatientAdmissionFactory
 import seg3x02.pms.domain.patient.repositories.PatientAdmissionRepository
 import java.util.*
@@ -24,24 +28,26 @@ class DivisionFacadeImpl(
     private val patientAdmissionRequestRepository: PatientAdmissionRequestRepository,
     private val bedRepository: BedRepository,
     private val roomRepository: RoomRepository,
+    private var eventEmitter: DomainEventEmitter,
 
     ) : DivisionFacade {
-    override fun admitPatient(admissionRequest: PatientAdmissionToDivisionDto): Boolean {
-        val division = divisionRepository.findById(admissionRequest.divisonId)
-        val bed = bedRepository.findById(admissionRequest.bedId)
-        val room = roomRepository.findById(admissionRequest.roomId)
+    override fun admitPatient(patientAdmission: PatientAdmissionToDivisionDto): Boolean {
+        val division = divisionRepository.findById(patientAdmission.divisonId)
+        val bed = bedRepository.findById(patientAdmission.bedId)
+        val room = roomRepository.findById(patientAdmission.roomId)
         if(bed == null || room == null || division == null || bed.bedStatus == BedStatus.TAKEN)
             return false
-        val admission = patientAdmissionFactory.createPatientAdmission(admissionRequest)
+        val admission = patientAdmissionFactory.createPatientAdmission(patientAdmission)
         patientAdmissionRepository.save(admission)
         bed.setBedStatus(BedStatus.TAKEN)
         bedRepository.save(bed)
         if(!room.hasAvailableBeds())
             room.setRoomStatus(RoomStatus.COMPLETE)
             roomRepository.save(room)
-        if(!hasAvailableRooms(admissionRequest.divisonId)!! )
+        if(!hasAvailableRooms(patientAdmission.divisonId)!! )
             division.setDivisionStatus(DivisionStatus.COMPLETE)
         divisionRepository.save(division)
+        eventEmitter.emit(PatientAdmissionCreatedEvent(UUID.randomUUID(), Date(), patientAdmission.patientNAS))
         return true
     }
     override fun requestPatientAdmission(admissionRequest: PatientAdmissionRequestDto): Boolean {
@@ -49,6 +55,8 @@ class DivisionFacadeImpl(
         val admissionRequestEntity = patientAdmissionRequestFactory.createPatientAdmissionRequest(admissionRequest)
         patientAdmissionRequestRepository.save(admissionRequestEntity)
         division?.addPatientAdmissionRequest(admissionRequest.patientNAS)
+        eventEmitter.emit(PatientRequestAdmissionCreatedEvent(UUID.randomUUID(), Date(), admissionRequest.patientNAS))
+
         return true
 
     }
