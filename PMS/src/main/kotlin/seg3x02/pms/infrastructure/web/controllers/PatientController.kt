@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*
 import java.security.Principal
 import javax.validation.Valid
 import seg3x02.pms.infrastructure.web.forms.*
+import seg3x02.pms.infrastructure.web.services.DivisionService
+import seg3x02.pms.infrastructure.web.services.PatientService
+import seg3x02.pms.infrastructure.web.services.PrescribeMedicationService
+import seg3x02.pms.infrastructure.web.services.StaffService
 
 import java.util.UUID
 
@@ -27,7 +31,6 @@ class PatientController(
 
     @GetMapping("/logout")
     fun logout(): String {
-        staffService.logout()
         return "redirect:/welcome"
     }
 
@@ -64,7 +67,6 @@ class PatientController(
         model: Model,
         session: HttpSession
     ): String {
-        // Assume you have a function to get patient information by NAS
         val patientInfo = patientService.getPatientInfoByNAS(patientNAS)
 
         if (patientInfo == null) {
@@ -95,7 +97,7 @@ class PatientController(
         }
         val patientNAS = session.getAttribute("patientNAS") as String
         val admissionStatus = patientService.admitPatient(patientNAS, patientAdmissionData)
-        if (admissionStatus == "success") {
+        if (admissionStatus.toString() == "success") {
             return "redirect:/admissionSuccess"
         } else {
             return "redirect:/admissionFailure"
@@ -159,7 +161,9 @@ class PatientController(
 
         val requestingChargedNurseNAS = staffService.getCurrentStaffUsername(principal)
 
-        patientService.requestAdmission(requestAdmissionData, requestingChargedNurseNAS)
+        if (requestingChargedNurseNAS != null) {
+            patientService.requestAdmission(requestAdmissionData, requestingChargedNurseNAS)
+        }
         return "redirect:/consultPatient/$requestAdmissionData.patientNAS"
     }
 
@@ -172,10 +176,9 @@ class PatientController(
         model: Model,
         session: HttpSession
     ): String {
-        val patientInfo = patientService.getPatientByNas(nas)
+        val patientInfo = patientService.getPatientInfoByNAS(nas)
 
         if (patientInfo == null) {
-            // Handle the case where the patient information is not found
             return "redirect:/patientNotFound"
         }
         model.addAttribute("patientUpdateData", PatientRegistrationForm())
@@ -198,7 +201,7 @@ class PatientController(
         val patientNAS = session.getAttribute("patientNAS") as String
         val updateStatus = patientService.updatePatient(patientNAS, patientUpdateData)
 
-        if (updateStatus == "success") {
+        if (updateStatus.toString() == "success") {
             return "redirect:/consultPatient/$patientNAS"
         } else {
             return "redirect:/error"
@@ -225,7 +228,7 @@ class PatientController(
             return "registerPatient"
         }
         val registrationStatus = patientService.registerPatient(patientRegisterData)
-        if (registrationStatus == "success") {
+        if (registrationStatus.toString() == "success") {
             return "redirect:/welcome"
         } else {
             return "redirect:/registrationFailure"
@@ -241,7 +244,7 @@ class PatientController(
         model: Model,
         session: HttpSession
     ): String {
-        val patientInfo = patientService.getPatientByNas(nas)
+        val patientInfo = patientService.getPatientInfoByNAS(nas)
 
         model.addAttribute("patientInfo", patientInfo)
         session.setAttribute("patientNas", nas)
@@ -253,7 +256,7 @@ class PatientController(
     @GetMapping("/dischargePatient/{patientNAS}")
     fun dischargePatient(@PathVariable patientNAS: String, model: Model): String {
         val dischargeStatus = patientService.dischargePatient(patientNAS)
-        if (dischargeStatus == "success") {
+        if (dischargeStatus.toString() == "success") {
             val patientInfo = patientService.getPatientInfoByNAS(patientNAS)
             model.addAttribute("patientInfo", patientInfo)
             return "consultPatient"
@@ -281,7 +284,7 @@ class PatientController(
         // Call the prescribeMedicationService to handle the logic
         val prescriptionStatus = prescribeMedicationService.prescribeMedication(prescribeMedicationData)
 
-        if (prescriptionStatus == "success") {
+        if (prescriptionStatus.toString() == "success") {
             return "redirect:/consultPatient/${prescribeMedicationData.patientNAS}"
         } else {
             // Handle failure scenario, maybe redirect to an error page
