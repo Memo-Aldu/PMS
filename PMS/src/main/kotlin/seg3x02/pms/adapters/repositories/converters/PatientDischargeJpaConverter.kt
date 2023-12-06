@@ -10,7 +10,8 @@ import java.util.*
  * @mailto : maldu064@uOttawa.ca
  * @created : 12/5/2023, Tuesday
  **/
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = [PatientJpaConverter::class,
+    StaffJpaConverter::class, DivisionJpaConverter::class])
 interface PatientDischargeJpaConverter {
     fun convertToJpaEntity(patientDischarge: PatientDischarge): PatientDischargeJpaEntity
     fun convertToModel(patientDischargeJpaEntity: PatientDischargeJpaEntity): PatientDischarge
