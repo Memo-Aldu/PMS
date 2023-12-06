@@ -6,11 +6,12 @@ import seg3x02.pms.application.dtos.queries.PatientRegisterDto
 import seg3x02.pms.application.dtos.queries.PatientUpdateDto
 import seg3x02.pms.domain.patient.entities.patient.Patient
 import seg3x02.pms.domain.patient.factory.PatientFactory
+import seg3x02.pms.application.dtos.queries.converters.PatientRegisterDtoConverter
 
 @Primary
 @Component
 class PatientDtoFactory: PatientFactory {
-    private val dtoConverter = Mappers.getMapper(PatientDtoConverter::class.java)
+    private val dtoConverter = Mappers.getMapper(PatientRegisterDtoConverter::class.java)
 
 
     override fun createPatient(patient: PatientRegisterDto): Patient {
