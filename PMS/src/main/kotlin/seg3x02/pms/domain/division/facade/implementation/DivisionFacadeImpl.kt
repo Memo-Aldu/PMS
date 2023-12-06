@@ -55,12 +55,12 @@ class DivisionFacadeImpl(
     override fun hasAvailableRooms(divisionId: UUID): Boolean? {
         val division = divisionRepository.findById(divisionId)
         return division?.rooms?.any{ room ->
-            room.roomStatus == RoomStatus.NOTCOMPLETE}
+            room.roomStatus == RoomStatus.NOT_COMPLETE}
     }
     override fun getNotCompleteRooms(divisionId: UUID): List<Room>? {
         val division = divisionRepository.findById(divisionId)
         return division?.rooms?.filter { room ->
-            room.roomStatus == RoomStatus.NOTCOMPLETE
+            room.roomStatus == RoomStatus.NOT_COMPLETE
         }
     }
     override fun doesDivisionExist(divisionId: UUID): Boolean{

@@ -4,6 +4,7 @@ import seg3x02.pms.application.dtos.queries.*
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.patient.entities.patient.Address
 import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
+import seg3x02.pms.domain.patient.entities.patient.Patient
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.patient.events.DischargeCreatedEvent
 import seg3x02.pms.domain.patient.events.PatientCreatedEvent

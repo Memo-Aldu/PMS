@@ -22,5 +22,5 @@ class BedJpaEntity(
     var room: RoomJpaEntity,
 
     @OneToMany(mappedBy = "bed", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientAdmissionRequestList: MutableList<PatientAdmissionJpaEntity> = ArrayList()
+    var patientAdmissionList: MutableList<PatientAdmissionJpaEntity> = ArrayList()
 )

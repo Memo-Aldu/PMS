@@ -43,10 +43,8 @@ class MedicationPrescriptionJpaEntity(
     @Column(name = "end_date", nullable = false)
     val endDate: Date,
 
-    @OneToMany(mappedBy = "prescription", fetch = FetchType.LAZY, orphanRemoval = true) // non-owning side
-    var administrationTimes: MutableList<AdministrationTimeJpaEntity> = ArrayList(),
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "patient_nas", nullable = false, referencedColumnName = "nas")
-    var patient: PatientJpaEntity
+    @ElementCollection
+    @CollectionTable(name = "MEDICATION_PRESCRIPTION_ADMINISTRATION_TIME",
+        joinColumns = [JoinColumn(name = "PRESCRIPTION_ID")])
+    var administrationTimes: MutableList<UUID> = ArrayList(),
 )

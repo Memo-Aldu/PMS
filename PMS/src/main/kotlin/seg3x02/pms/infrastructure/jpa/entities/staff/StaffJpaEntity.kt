@@ -8,6 +8,7 @@ import seg3x02.pms.infrastructure.jpa.entities.patient.admission.PatientDischarg
 import seg3x02.pms.infrastructure.jpa.entities.user.UserAccountJpaEntity
 import seg3x02.pms.infrastructure.jpa.enums.staff.StaffRoleEnum
 import java.util.ArrayList
+import java.util.UUID
 
 /**
  * @author : memo-aldu
@@ -20,6 +21,7 @@ class StaffJpaEntity(
     @Id
     @Column(name = "staff_id", nullable = false, unique = true)
     val staffId: String,
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, columnDefinition = "varchar(20)")
     var role: StaffRoleEnum,
@@ -34,16 +36,4 @@ class StaffJpaEntity(
 
     @OneToOne(mappedBy = "chargeNurse", cascade = [CascadeType.ALL], orphanRemoval = true)
     var divisionChargeNurse: DivisionJpaEntity? = null,
-
-    @OneToMany(mappedBy = "requestingChargedNurse", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var admissionRequest: MutableList<AdmissionRequestJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "requestingChargedNurse", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientAdmissionRequestList: MutableList<PatientAdmissionJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "acceptingChargedNurse", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientAdmissionAcceptedList: MutableList<PatientAdmissionJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "dischargeNurse", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientDischargeList: MutableList<PatientDischargeJpaEntity> = ArrayList(),
 )

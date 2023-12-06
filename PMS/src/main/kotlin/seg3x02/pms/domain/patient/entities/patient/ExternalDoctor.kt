@@ -8,8 +8,8 @@ import java.util.UUID
  * @created : 11/12/2023, Sunday
  **/
 class ExternalDoctor(
-    val firstName: String,
-    val lastName: String,
-    val phoneNumber: String,
-    val email: String,
+    val externalDoctorFirstName: String,
+    val externalDoctorLastName: String,
+    val externalDoctorPhoneNumber: String,
+    val externalDoctorEmail: String,
 )

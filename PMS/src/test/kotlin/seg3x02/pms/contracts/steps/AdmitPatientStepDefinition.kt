@@ -74,7 +74,7 @@ class AdmitPatientStepDefinition: En {
         And("the division is not full") {
             // Write code here that turns the phrase above into concrete actions
             val divisionInfo = createDivision(DivisionStatus.INCOMPLETE)
-            val roomInfo = createRoom(divisionInfo, RoomStatus.NOTCOMPLETE)
+            val roomInfo = createRoom(divisionInfo, RoomStatus.NOT_COMPLETE)
             val bedInfo = createBed(roomInfo, BedStatus.AVAILABLE)
             division = divisionRepository.save(divisionInfo)
             room = roomRepository.save(roomInfo)

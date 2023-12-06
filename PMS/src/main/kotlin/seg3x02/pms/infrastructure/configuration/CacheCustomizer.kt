@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 class CacheCustomizer: CacheManagerCustomizer<ConcurrentMapCacheManager> {
     override fun customize(cacheManager: ConcurrentMapCacheManager?) {
         cacheManager?.setCacheNames(listOf("users", "patients",
-            "staffs", "prescriptions", "divisions", "rooms", "beds"))
+            "staffs", "prescriptions", "divisions", "rooms", "beds", "admissionRequest",
+            "patientAdmission", "patientDischarge", "patientNextOfKin"))
     }
 }

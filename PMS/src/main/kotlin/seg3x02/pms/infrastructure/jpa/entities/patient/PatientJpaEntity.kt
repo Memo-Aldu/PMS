@@ -7,6 +7,7 @@ import seg3x02.pms.infrastructure.jpa.entities.patient.admission.PatientDischarg
 import seg3x02.pms.infrastructure.jpa.entities.prescription.MedicationPrescriptionJpaEntity
 import seg3x02.pms.infrastructure.jpa.enums.patient.MaritalStatusEnum
 import java.util.Date
+import java.util.UUID
 
 
 /**
@@ -52,15 +53,8 @@ class PatientJpaEntity(
     @JoinColumn(name = "kin_id", nullable = false, referencedColumnName = "kin_id") // non-owning side
     var nextOfKin: PatientNextOfKinJpaEntity,
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, orphanRemoval = true) // non-owning side
-    var admissionRequests: MutableList<AdmissionRequestJpaEntity> = ArrayList(),
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, orphanRemoval = true) // non-owning side
-    var admissions: MutableList<PatientAdmissionJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, orphanRemoval = true) // non-owning side
-    var discharges: MutableList<PatientDischargeJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, orphanRemoval = true) // non-owning side
-    var prescriptions: MutableList<MedicationPrescriptionJpaEntity> = ArrayList()
+    @ElementCollection
+    @CollectionTable(name = "patient_prescriptions", joinColumns = [JoinColumn(name = "patient_nas")])
+    var prescriptions: MutableList<UUID> = ArrayList()
 )

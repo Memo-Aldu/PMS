@@ -12,12 +12,11 @@ import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
 import seg3x02.pms.domain.patient.entities.patient.Patient
 import seg3x02.pms.domain.patient.entities.patient.PatientNextOfKin
 import seg3x02.pms.domain.patient.enums.PatientKinRelationshipEnum
-import seg3x02.pms.domain.patient.repositories.ExternalDoctorRepository
 import seg3x02.pms.domain.staff.entities.Staff
 import seg3x02.pms.domain.staff.enums.StaffRoleEnum
 import seg3x02.pms.domain.staff.repository.StaffRepository
 import seg3x02.pms.domain.user.entities.UserAccount
-import seg3x02.pms.domain.user.entities.UserRole
+import seg3x02.pms.domain.user.enums.UserRoleEnum
 import java.sql.Date
 import java.util.*
 
@@ -44,10 +43,7 @@ fun createUserAccount(): UserAccount {
         "Memo",
         "Aldu",
         "info@pms.com")
-    user.role = UserRole(
-        UUID.randomUUID(),
-        "ADMIN"
-    )
+    user.role = UserRoleEnum.APP_USER
     return user
 }
 

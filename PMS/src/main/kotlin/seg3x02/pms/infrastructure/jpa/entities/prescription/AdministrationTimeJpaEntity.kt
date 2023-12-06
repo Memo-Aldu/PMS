@@ -22,8 +22,4 @@ class AdministrationTimeJpaEntity(
 
     @Column(name = "unites_administered", nullable = false)
     val unitesAdministered: Int,
-
-    @ManyToOne(fetch = FetchType.LAZY) // owning side
-    @JoinColumn(name = "prescription_id", nullable = false, referencedColumnName = "prescription_id")
-    var prescription: MedicationPrescriptionJpaEntity,
 )
