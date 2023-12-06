@@ -11,6 +11,7 @@ import seg3x02.pms.infrastructure.web.services.DivisionService
 import seg3x02.pms.infrastructure.web.services.PatientService
 import seg3x02.pms.infrastructure.web.services.PrescribeMedicationService
 import seg3x02.pms.infrastructure.web.services.StaffService
+import org.springframework.security.core.context.SecurityContextHolder
 
 import java.util.UUID
 
@@ -29,8 +30,9 @@ class PatientController(
         return "login"
     }
 
-    @GetMapping("/logout")
+   @GetMapping("/logout")
     fun logout(): String {
+        SecurityContextHolder.clearContext()
         return "redirect:/welcome"
     }
 
