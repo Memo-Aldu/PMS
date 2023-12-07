@@ -32,9 +32,8 @@ class AdmitPatientStepDefinition: En {
     private var patientAdmissionRequestFactory = PatientAdmissionRequestFactoryStub()
     private var patientAdmissionFactory = PatientAdmissionFactoryStub()
     private var patientFactory = PatientFactoryStub()
-    private var addressRepository = AddressRepositoryStub()
     private var patientNextOfKinRepository = PatientNextOfKinRepositoryStub()
-    private var externalDoctorRepository = ExternalDoctorRepositoryStub()
+    private var externalDoctorFactory = ExternalDoctorFactoryStub()
     private var staffRepository = StaffRepositoryStub()
     private var patientNextOfKinFactory = PatientNextOfKinFactoryStub()
     private var addressFactory = AddressFactoryStub()
@@ -63,8 +62,8 @@ class AdmitPatientStepDefinition: En {
             assert(registeredNurse != null)
         }
         And("the Charge Nurse is consulting the patient files") {
-            externalDoctor = createExternalDoctor(externalDoctorRepository)
-            patientInfo = createPatientInfo(externalDoctor!!.id)
+            externalDoctor = createExternalDoctor()
+            patientInfo = createPatientInfo()
             patient = patientRepository.save(patientFactory.createPatient(patientInfo!!))
         }
 
@@ -75,7 +74,7 @@ class AdmitPatientStepDefinition: En {
         And("the division is not full") {
             // Write code here that turns the phrase above into concrete actions
             val divisionInfo = createDivision(DivisionStatus.INCOMPLETE)
-            val roomInfo = createRoom(divisionInfo, RoomStatus.NOTCOMPLETE)
+            val roomInfo = createRoom(divisionInfo, RoomStatus.NOT_COMPLETE)
             val bedInfo = createBed(roomInfo, BedStatus.AVAILABLE)
             division = divisionRepository.save(divisionInfo)
             room = roomRepository.save(roomInfo)
@@ -114,7 +113,8 @@ class AdmitPatientStepDefinition: En {
                 patientAdmissionFactory,
                 patientAdmissionRequestRepository,
                 bedRepository,
-                roomRepository
+                roomRepository,
+                eventEmitter
             )
 
             val patientFacade = PatientFacadeImpl(
@@ -123,9 +123,8 @@ class AdmitPatientStepDefinition: En {
                 patientNextOfKinRepository,
                 patientDischargeRepository,
                 patientDischargeFactory,
-                addressRepository,
-                externalDoctorRepository,
                 patientFactory,
+                externalDoctorFactory,
                 patientNextOfKinFactory,
                 addressFactory,
                 eventEmitter
@@ -160,9 +159,8 @@ class AdmitPatientStepDefinition: En {
             patientAdmissionRequestFactory = PatientAdmissionRequestFactoryStub()
             patientAdmissionFactory = PatientAdmissionFactoryStub()
             patientFactory = PatientFactoryStub()
-            addressRepository = AddressRepositoryStub()
             patientNextOfKinRepository = PatientNextOfKinRepositoryStub()
-            externalDoctorRepository = ExternalDoctorRepositoryStub()
+            externalDoctorFactory = ExternalDoctorFactoryStub()
             staffRepository = StaffRepositoryStub()
             patientNextOfKinFactory = PatientNextOfKinFactoryStub()
             addressFactory = AddressFactoryStub()

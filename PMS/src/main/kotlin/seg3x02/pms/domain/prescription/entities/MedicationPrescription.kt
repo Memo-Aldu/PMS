@@ -13,7 +13,7 @@ class MedicationPrescription(
     val id: UUID,
     val drugNumber: Long,
     val drugName: String,
-    val uniteByDay: Int,
+    val unitsByDay: Int,
     val numberOfAdministrationPerDay: Int,
     val administrationTimes: MutableList<UUID> = ArrayList(),
     val methodOfAdministration: PrescriptionAdministrationMethodEnum,

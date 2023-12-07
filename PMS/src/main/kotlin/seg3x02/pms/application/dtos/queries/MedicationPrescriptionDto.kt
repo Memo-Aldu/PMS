@@ -13,7 +13,7 @@ data class MedicationPrescriptionDto(
     val prescribingDoctorId: String,
     val drugNumber: Long,
     val drugName: String,
-    val uniteByDay: Int,
+    val unitsByDay: Int,
     val numberOfAdministrationPerDay: Int,
     val administrationTimes: List<AdministrationTimeDto>,
     val methodOfAdministration: PrescriptionAdministrationMethodEnum,
@@ -23,5 +23,5 @@ data class MedicationPrescriptionDto(
 
 data class AdministrationTimeDto(
         val timeOfDay: LocalDateTime,
-        val unitesAdministered: Int
+        val unitsAdministered: Int
 )

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <h2>Prescribe Medication</h2>
+    <form th:object="${prescribeMedicationData}" th:action="@{/prescribeMedication}" method="post">
+        <div>
+            <label for="patientNAS">Patient NAS:</label>
+            <input type="text" id="patientNAS" name="patientNAS" th:field="*{patientNAS}" />
+            <span th:if="${#fields.hasErrors('patientNAS')}" th:errors="*{patientNAS}"></span>
+        </div>
+
+        <div>
+            <label for="prescribingDoctorId">Prescribing Doctor ID:</label>
+            <input type="text" id="prescribingDoctorId" name="prescribingDoctorId" th:field="*{prescribingDoctorId}" />
+            <span th:if="${#fields.hasErrors('prescribingDoctorId')}" th:errors="*{prescribingDoctorId}"></span>
+        </div>
+
+        <div>
+            <label for="drugNumber">Drug Number:</label>
+            <input type="text" id="drugNumber" name="drugNumber" th:field="*{drugNumber}" />
+            <span th:if="${#fields.hasErrors('drugNumber')}" th:errors="*{drugNumber}"></span>
+        </div>
+
+        <div>
+            <label for="drugName">Drug Name:</label>
+            <input type="text" id="drugName" name="drugName" th:field="*{drugName}" />
+            <span th:if="${#fields.hasErrors('drugName')}" th:errors="*{drugName}"></span>
+        </div>
+
+        <div>
+            <label for="unitsByDay">Units by Day:</label>
+            <input type="text" id="unitsByDay" name="unitsByDay" th:field="*{unitsByDay}" />
+            <span th:if="${#fields.hasErrors('unitsByDay')}" th:errors="*{unitsByDay}"></span>
+        </div>
+
+        <div>
+            <label for="numberOfAdministrationPerDay">Number of Administration Per Day:</label>
+            <input type="text" id="numberOfAdministrationPerDay" name="numberOfAdministrationPerDay"
+                   th:field="*{numberOfAdministrationPerDay}" />
+            <span th:if="${#fields.hasErrors('numberOfAdministrationPerDay')}" th:errors="*{numberOfAdministrationPerDay}"></span>
+        </div>
+
+        <div>
+            <label for="administrationTimes">Administration Times:</label>
+            <div th:each="time, iterStat : *{administrationTimes}">
+                <div>
+                    <label th:for="${'administrationTimes[' + iterStat.index + '].timeOfDay'}">Time of Day:</label>
+                    <input type="text" th:id="${'administrationTimes[' + iterStat.index + '].timeOfDay'}"
+                           th:name="${'administrationTimes[' + iterStat.index + '].timeOfDay'}"
+                           th:field="*{administrationTimes[__${iterStat.index}__].timeOfDay}" />
+                    <span th:if="${#fields.hasErrors('administrationTimes[' + iterStat.index + '].timeOfDay')}"
+                          th:errors="*{administrationTimes[__${iterStat.index}__].timeOfDay}"></span>
+                </div>
+
+                <div>
+                    <label th:for="${'administrationTimes[' + iterStat.index + '].unitsAdministered'}">Units Administered:</label>
+                    <input type="text" th:id="${'administrationTimes[' + iterStat.index + '].unitsAdministered'}"
+                           th:name="${'administrationTimes[' + iterStat.index + '].unitsAdministered'}"
+                           th:field="*{administrationTimes[__${iterStat.index}__].unitsAdministered}" />
+                    <span th:if="${#fields.hasErrors('administrationTimes[' + iterStat.index + '].unitsAdministered')}"
+                          th:errors="*{administrationTimes[__${iterStat.index}__].unitsAdministered}"></span>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label for="methodOfAdministration">Method of Administration:</label>
+            <select id="methodOfAdministration" name="methodOfAdministration"
+                    th:field="*{methodOfAdministration}">
+                <option value="ORAL">Oral</option>
+                <option value="INJECTION">Injection</option>
+            </select>
+            <span th:if="${#fields.hasErrors('methodOfAdministration')}" th:errors="*{methodOfAdministration}"></span>
+        </div>
+
+        <div>
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" th:field="*{startDate}" />
+            <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
+        </div>
+
+        <div>
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" th:field="*{endDate}" />
+            <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span>
+        </div>
+
+        <div>
+            <button type="submit">Prescribe Medication</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

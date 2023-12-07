@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+<h2>Patient Information</h2>
+    <div>
+        <p>Patient NAS: <span th:text="${patientInfo.nas}"></span></p>
+        <p>First Name: <span th:text="${patientInfo.firstName}"></span></p>
+        <p>Last Name: <span th:text="${patientInfo.lastName}"></span></p>
+        <p>Phone Number: <span th:text="${patientInfo.phoneNumber}"></span></p>
+        <p>Date of Birth: <span th:text="${patientInfo.dob}"></span></p>
+        <p>Gender: <span th:text="${patientInfo.gender}"></span></p>
+        <p>Marital Status: <span th:text="${patientInfo.maritalStatus}"></span></p>
+        <p>External Doctor ID: <span th:text="${patientInfo.externalDoctorID}"></span></p>
+        <p>Street Address: <span th:text="${patientInfo.addressStreet}"></span></p>
+        <p>City: <span th:text="${patientInfo.addressCity}"></span></p>
+        <p>Country: <span th:text="${patientInfo.addressCountry}"></span></p>
+        <p>Postal Code: <span th:text="${patientInfo.addressPostalCode}"></span></p>
+        <p>Next of Kin First Name: <span th:text="${patientInfo.nextOfKinFirstName}"></span></p>
+        <p>Next of Kin Last Name: <span th:text="${patientInfo.nextOfKinLastName}"></span></p>
+
+        <a th:href="@{/updatePatient/{patientNAS}(patientNAS=${patientInfo.nas})}">Edit</a>
+    </div>
+<div>
+    <button th:if="${showRequestAdmissionButton}"
+            th:href="@{/requestAdmission/{patientNAS}(patientNAS=${patientInfo.nas})}">Request Admission</button>
+</div>
+    <div>
+        <button th:if="${showDischargeButton}" th:href="@{/dischargePatient/{patientNAS}(patientNAS=${patientInfo.nas})}">
+            Discharge Patient
+        </button>
+    </div>
+    <div>
+    <button th:if="${showAdmitButton}"
+            th:href="@{/admitPatient/{patientNAS}(patientNAS=${patientInfo.nas})}">Admit Patient</button>
+</div>
+</div>
+</body>
+</html>

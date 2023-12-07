@@ -12,8 +12,8 @@ interface AdmitPatientFromRequestList {
     /**
      * Admit a patient from the request list (UC7)
      * @param patientToAdmit PatientAdmissionFormRequestDto
-     * @return UUID? patient admission request id if patient was admitted, null otherwise
+     * @return Boolean
      */
-    fun admitPatientFromRequestList(patientToAdmit: PatientAdmissionFormRequestDto) : UUID?
+    fun admitPatientFromRequestList(patientToAdmit: PatientAdmissionFormRequestDto) : Boolean
 
 }

@@ -1,5 +1,7 @@
 package seg3x02.pms.domain.user.entities
 
+import seg3x02.pms.domain.user.enums.UserRoleEnum
+
 /**
  * @author : memo-aldu
  * @mailto : maldu064@uOttawa.ca
@@ -11,5 +13,5 @@ class UserAccount(
         val firstName: String,
         val lastName: String,
         val email: String) {
-    lateinit var role: UserRole
+    lateinit var role: UserRoleEnum
 }

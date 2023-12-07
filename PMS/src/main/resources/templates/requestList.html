@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Request ID</th>
+        <th>Division ID</th>
+        <th>Rationale for Request</th>
+        <th>Priority Assessment</th>
+        <th>Requesting Charged Nurse NAS</th>
+        <th>Patient NAS</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="request : ${admissionRequests}">
+        <td th:text="${request.id}"></td>
+        <td th:text="${request.divisionId}"></td>
+        <td th:text="${request.rationaleForRequest}"></td>
+        <td th:text="${request.priorityAssessment}"></td>
+        <td th:text="${request.requestingChargedNurseNAS}"></td>
+        <td th:text="${request.patient.nas}"></td>
+        <td>
+            <th:block th:with="divisionStatus=${@divisionService.getDivisionStatus(request.divisionId)}">
+                <th:block th:if="${divisionStatus != 'COMPLETE'}">
+                    <a th:href="@{/admitPatientFromRequestList/{patientNAS}(patientNAS=${request.patient.nas})}">
+                        <button>Admit</button>
+                    </a>
+                </th:block>
+                <th:block th:if="${divisionStatus == 'COMPLETE'}">
+                    <span>Division is complete</span>
+                </th:block>
+            </th:block>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

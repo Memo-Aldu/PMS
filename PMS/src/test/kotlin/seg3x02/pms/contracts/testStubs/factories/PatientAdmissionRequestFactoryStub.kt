@@ -18,6 +18,8 @@ class PatientAdmissionRequestFactoryStub: PatientAdmissionRequestFactory {
             patientAdmissionRequestDto.divisionId,
             patientAdmissionRequestDto.rationaleForRequest,
             RationalOfRequestEnum.valueOf(patientAdmissionRequestDto.priorityAssessment.toString()),
+            null,
+            null
         )
     }
 }

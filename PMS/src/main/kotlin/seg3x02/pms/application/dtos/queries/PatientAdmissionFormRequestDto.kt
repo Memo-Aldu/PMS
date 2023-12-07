@@ -10,4 +10,7 @@ import java.util.UUID
 data class PatientAdmissionFormRequestDto(
         val requestId: UUID, // the request id found in the request list
         val localAcceptingChargedNurseNAS: String,
+        val roomId: UUID,
+        val bedId: UUID,
+        val optionPrivateInsuranceNumber: String?,
 )

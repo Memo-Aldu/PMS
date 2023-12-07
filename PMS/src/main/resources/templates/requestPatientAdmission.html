@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid">
+        <div class="content">
+            <div class="container">
+                <form id="request-patient-admission-form" action="#" th:object="${requestAdmissionData}"
+                      th:action="@{/requestPatientAdmission}" method="post">
+                    <div class="mb-3">
+                        <label for="patientNAS">Patient NAS</label>
+                        <input id="patientNAS" class="form-control" type="text" placeholder="Enter Patient NAS"
+                               name="patientNAS" th:field="*{patientNAS}" required/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rationaleForRequest">Rationale for Request</label>
+                        <textarea id="rationaleForRequest" class="form-control" placeholder="Enter Rationale for Request"
+                                  name="rationaleForRequest" th:field="*{rationaleForRequest}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="priorityAssessment">Priority Assessment (1-10)</label>
+                        <input id="priorityAssessment" class="form-control" type="number" min="1" max="10"
+                               placeholder="Enter Priority Assessment" name="priorityAssessment" th:field="*{priorityAssessment}" required/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="localRequestingChargedNurseNAS">Local Requesting Charged Nurse NAS</label>
+                        <input id="localRequestingChargedNurseNAS" class="form-control" type="text"
+                               placeholder="Enter Local Requesting Charged Nurse NAS"
+                               name="localRequestingChargedNurseNAS" th:field="*{localRequestingChargedNurseNAS}" required/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="divisionId">Division</label>
+                        <select id="divisionId" class="form-control" name="divisionId" th:field="*{divisionId}" required>
+                            <option th:each="division : ${divisions}" th:value="${division.id}" th:text="${division.name}"></option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

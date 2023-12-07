@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div class="container-fluid">
+    <div class="container">
+    <form id="staff-form" action="#" th:object="${registerStaffData}" th:action="@{${actionUrl}}" method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <label th:if="${show}" for="staffId" th:text="#{staff.staffId}"><b>Staff ID</b></label>
+                <input id="staffId" class="form-control" type="text" placeholder="Enter Staff ID"
+                       name="staffId" th:type="${show}? 'text' : 'hidden'" th:field="*{staffId}"/>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}">
+                    Error
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label th:if="${show}" for="passwd" th:text="#{staff.password}"><b>Password</b></label>
+                <input id="passwd" class="form-control" type="password" placeholder="Enter Password"
+                       name="passwd" th:type="${show}? 'password' : 'hidden'" th:field="*{password}"/>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    Error
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label th:if="${show}" for="passwdconf" th:text="#{staff.password.confirm}"><b>Confirm Password</b></label>
+                <input id="passwdconf" class="form-control" type="password" placeholder="Repeat Password"
+                       name="passwdconf" th:type="${show}? 'password' : 'hidden'" th:field="*{passwordConf}"/>
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('passwordConf')}" th:errors="*{passwordConf}">
+                    Error
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="fname" th:text="#{staff.firstname}"><b>First Name</b></label>
+                <input id="fname" class="form-control" type="text" placeholder="Enter your first name"
+                       name="fname" th:field="*{firstName}"/>
+            </div>
+            <div class="col-md-6">
+                <label for="lname" th:text="#{staff.lastname}"><b>Last Name</b></label>
+                <input id="lname" class="form-control" type="text" placeholder="Enter your last name"
+                       name="lname" th:field="*{lastName}"/>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="email" th:text="#{staff.email}"><b>Email</b></label>
+            <input id="email" class="form-control" type="email" placeholder="Enter your Email" name="email"
+                   th:field="*{email}"/>
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                Error
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary" name="register" th:text="#{${actionBtn}}">Submit</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>
