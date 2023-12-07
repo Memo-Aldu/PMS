@@ -39,15 +39,14 @@ class DivisionJpaEntity(
     @JoinColumn(name = "charge_nurse_id", referencedColumnName = "staff_id")
     var chargeNurse: StaffJpaEntity?,
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "division") // non-owning side
-    var staffs: MutableList<StaffJpaEntity>? = null,
+    @ElementCollection
+    @CollectionTable(name = "division_staffs", joinColumns = [JoinColumn(name = "division_id")])
+    var staffs: MutableList<UUID>? = null,
 
     @OneToMany(mappedBy = "division", cascade = [CascadeType.ALL], orphanRemoval = true)
     var rooms: MutableList<RoomJpaEntity> = ArrayList(),
 
-    @OneToMany(mappedBy = "division", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientAdmissionRequestList: MutableList<AdmissionRequestJpaEntity> = ArrayList(),
-
-    @OneToMany(mappedBy = "division", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var patientAdmissionList: MutableList<PatientAdmissionJpaEntity> = ArrayList()
+    @ElementCollection
+    @CollectionTable(name = "division_patient_admission_requests", joinColumns = [JoinColumn(name = "division_id")])
+    var patientAdmissionRequestList: MutableList<String> = ArrayList(),
 )

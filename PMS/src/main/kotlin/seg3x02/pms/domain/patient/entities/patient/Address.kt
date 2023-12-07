@@ -8,7 +8,6 @@ import java.util.UUID
  * @created : 2023-11-11, Saturday
  **/
 class Address(
-        val id: UUID,
         val street: String,
         val city: String,
         val country: String,

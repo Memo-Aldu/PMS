@@ -13,4 +13,5 @@ import java.util.*
 
 @Repository
 interface MedicationPrescriptionJpaRepository: CrudRepository<MedicationPrescriptionJpaEntity, UUID> {
+    fun existsByDrugNumber(drugNumber: Long): Boolean
 }

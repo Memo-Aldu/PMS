@@ -26,13 +26,6 @@ import seg3x02.pms.domain.staff.facade.StaffFacade
 import seg3x02.pms.domain.staff.facade.implementation.StaffFacadeImpl
 import seg3x02.pms.domain.staff.repository.StaffRepository
 
-*/
-/**
- * @author : memo-aldu
- * @mailto : maldu064@uOttawa.ca
- * @created : 12/3/2023, Sunday
- **//*
-
 @Configuration
 class BeanConfiguration {
     // TODO: UNCOMMENT ONCE ADAPTER IMPLEMENTED
@@ -87,9 +80,10 @@ class BeanConfiguration {
 
     @Bean
     fun admitPatientFromRequestListUseCase(
+        divisionFacade: DivisionFacade
     ): AdmitPatientFromRequestList {
         // TODO: ADD DEPENDENCIES ONCE USE CASE IS IMPLEMENTED
-        return AdmitPatientFromRequestListImpl()
+        return AdmitPatientFromRequestListImpl(divisionFacade)
     }
 
     @Bean
@@ -132,14 +126,13 @@ class BeanConfiguration {
         return RegisterPatientImpl(patientFacade)
     }
 
-*/
-/*    @Bean
+    @Bean
     // TODO: ADD DEPENDENCIES ONCE USE CASE IS IMPLEMENTED
     fun registerStaffUseCase(
         staffFacade: StaffFacade,
     ): RegisterStaff {
         return RegisterStaffImpl(staffFacade)
-    }*//*
+    }
 
 
     @Bean
@@ -159,4 +152,5 @@ class BeanConfiguration {
 
 
 
-}*/
+}
+*/
