@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration</title>
+</head>
+<body>
+<h2>Patient Registration</h2>
+<form  id="patient-registration-form" action="#" th:action="@{/registerPatient}" method="post" th:object="${patientRegistrationData}">
+    <label for="nas">NAS:</label>
+    <input type="text" id="nas" name="nas" th:field="*{nas}" required/>
+
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" th:field="*{firstName}" required/>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required/>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" required/>
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" name="dob" th:field="*{dob}" required/>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" th:field="*{gender}" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select>
+
+    <label for="maritalStatus">Marital Status:</label>
+    <select id="maritalStatus" name="maritalStatus" th:field="*{maritalStatus}" required>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+    </select>
+
+    <label for="externalDoctorID">External Doctor ID:</label>
+    <input type="text" id="externalDoctorID" name="externalDoctorID" th:field="*{externalDoctorID}" required/>
+
+    <label for="addressStreet">Address Street:</label>
+    <input type="text" id="addressStreet" name="addressStreet" th:field="*{addressStreet}" required/>
+
+    <label for="addressCity">Address City:</label>
+    <input type="text" id="addressCity" name="addressCity" th:field="*{addressCity}" required/>
+
+    <label for="addressCountry">Address Country:</label>
+    <input type="text" id="addressCountry" name="addressCountry" th:field="*{addressCountry}" required/>
+
+    <label for="addressPostalCode">Address Postal Code:</label>
+    <input type="text" id="addressPostalCode" name="addressPostalCode" th:field="*{addressPostalCode}" required/>
+
+    <label for="nextOfKinFirstName">Next of Kin First Name:</label>
+    <input type="text" id="nextOfKinFirstName" name="nextOfKinFirstName" th:field="*{nextOfKinFirstName}" required/>
+
+    <label for="nextOfKinLastName">Next of Kin Last Name:</label>
+    <input type="text" id="nextOfKinLastName" name="nextOfKinLastName" th:field="*{nextOfKinLastName}" required/>
+
+    <button type="submit">Register Patient</button>
+</form>
+</body>
+</html>

@@ -49,5 +49,4 @@ class DivisionJpaEntity(
     @ElementCollection
     @CollectionTable(name = "division_patient_admission_requests", joinColumns = [JoinColumn(name = "division_id")])
     var patientAdmissionRequestList: MutableList<String> = ArrayList(),
-
 )

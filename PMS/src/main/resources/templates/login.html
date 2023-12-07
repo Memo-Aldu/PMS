@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+</head>
+<body>
+<div class="container-fluid">
+    <div layout:fragment="content">
+        <div class="login">
+            <div th:if="${param.error}" class="alert alert-danger alert-dismissible fade show">
+                <span th:text="#{loginPage.invalid}">Login Error.</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" role="alert">
+                </button>
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="mb-3">
+                    <label for="loginId" th:text="#{loginPage.username}">User Name </label>
+                    <input id="loginId" class="form-control" type="text"  name="username"/>
+                </div>
+                <div class="mb-3">
+                    <label for="loginPasswd" th:text="#{loginPage.password}">Password :</label>
+                    <input id="loginPasswd" class="form-control"  type="password"  name="password"/></td>
+                </div>
+                <button id="loginBtn" class="btn btn-primary" type="submit" th:text="#{loginPage.signin}"></button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -46,5 +46,5 @@ class MedicationPrescriptionJpaEntity(
     @ElementCollection
     @CollectionTable(name = "MEDICATION_PRESCRIPTION_ADMINISTRATION_TIME",
         joinColumns = [JoinColumn(name = "PRESCRIPTION_ID")])
-    var administrationTimes: MutableList<UUID> = ArrayList(),
+    var administrationTimes: MutableList<UUID> = ArrayList()
 )

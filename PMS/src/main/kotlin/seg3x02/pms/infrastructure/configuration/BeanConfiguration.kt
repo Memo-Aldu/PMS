@@ -26,8 +26,6 @@ import seg3x02.pms.domain.staff.facade.StaffFacade
 import seg3x02.pms.domain.staff.facade.implementation.StaffFacadeImpl
 import seg3x02.pms.domain.staff.repository.StaffRepository
 
-
-
 @Configuration
 class BeanConfiguration {
     // TODO: UNCOMMENT ONCE ADAPTER IMPLEMENTED
@@ -151,6 +149,8 @@ class BeanConfiguration {
     ): UpdatePatientFile {
         return UpdatePatientFileImpl(patientFacade)
     }
+
+
 
 }
 */

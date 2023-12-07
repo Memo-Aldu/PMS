@@ -53,7 +53,6 @@ class PatientJpaEntity(
     @JoinColumn(name = "kin_id", nullable = false, referencedColumnName = "kin_id") // non-owning side
     var nextOfKin: PatientNextOfKinJpaEntity,
 
-
     @ElementCollection
     @CollectionTable(name = "patient_prescriptions", joinColumns = [JoinColumn(name = "patient_nas")])
     var prescriptions: MutableList<UUID> = ArrayList()

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admit Patient</title>
+</head>
+<body>
+<h2>Admit Patient</h2>
+<div th:fragment="admit-patient-form">
+<form id="admit-patient-form" action="#" th:object="${patientAdmissionData}" th:action="@{/admit-patient}" method="post">
+    <div th:if="${#fields.hasErrors('*')}">
+        <p th:each="error : ${#fields.errors('*')}" th:text="${error}"></p>
+    </div>
+
+    <label for="patientNAS">Patient NAS:</label>
+    <input type="text" id="patientNAS" name="patientNAS" th:field="*{patientNAS}"/>
+
+    <label for="divisionName">Division:</label>
+    <select id="divisionName" name="divisionName" th:field="*{divisionName}">
+        <option th:each="division : ${divisions}" th:value="${division.divisionName}" th:text="${division.divisionName}"></option>
+    </select>
+
+    <div th:if="${#fields.hasErrors('divisionName')}">
+        <p th:errors="*{divisionName}"></p>
+    </div>
+
+    <div th:if="${#fields.hasErrors('roomId')}">
+        <p th:errors="*{roomId}"></p>
+    </div>
+    <label for="roomId">Room:</label>
+    <select id="roomId" name="roomId" th:field="*{roomId}" th:disabled="${#fields.hasErrors('divisionName')}">
+        <option value="" disabled="disabled" selected="selected">Select Room</option>
+        <option th:each="room, roomIndex : ${rooms}" th:value="${roomIndex.index}" th:text="${roomIndex.index + 1}"></option>
+    </select>
+
+    <div th:if="${#fields.hasErrors('bedId')}">
+        <p th:errors="*{bedId}"></p>
+    </div>
+    <label for="bedId">Bed:</label>
+    <select id="bedId" name="bedId" th:field="*{bedId}" th:disabled="${#fields.hasErrors('roomId')}">
+        <option value="" disabled="disabled" selected="selected">Select Bed</option>
+        <option th:each="bed, bedIndex : ${rooms[__${roomId}__].beds}" th:value="${bedIndex.index}" th:text="${bedIndex.index + 1}"></option>
+    </select>
+
+    <label for="requestingChargedNurseNAS">Requesting Charged Nurse NAS:</label>
+    <input type="text" id="requestingChargedNurseNAS" name="requestingChargedNurseNAS" th:field="*{requestingChargedNurseNAS}"/>
+
+    <label for="approvingChargedNurseNAS">Approving Charged Nurse NAS:</label>
+    <input type="text" id="approvingChargedNurseNAS" name="approvingChargedNurseNAS" th:field="*{approvingChargedNurseNAS}"/>
+
+    <label for="optionPrivateInsuranceNumber">Private Insurance Number (optional):</label>
+    <input type="text" id="optionPrivateInsuranceNumber" name="optionPrivateInsuranceNumber" th:field="*{optionPrivateInsuranceNumber}"/>
+
+    <button type="submit">Admit Patient</button>
+</form>
+</body>
+</html>

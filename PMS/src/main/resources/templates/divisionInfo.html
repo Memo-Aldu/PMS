@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+
+<h2>Division Information</h2>
+<table>
+    <tr>
+        <td>Division Name:</td>
+        <td th:text="${division.divisionName}"></td>
+    </tr>
+    <tr>
+        <td>Division Status:</td>
+        <td th:text="${division.status}"></td>
+    </tr>
+    <tr>
+        <td>Charge Nurse:</td>
+        <td th:text="${division.chargeNurse}"></td>
+    </tr>
+</table>
+
+<h2>Staff Information</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Staff ID</th>
+        <th>Name</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="staff : ${division.staff}">
+        <td th:text="${staff.staffId}"></td>
+        <td th:text="${staff.name}"></td>
+        <td th:text="${staff.role}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Rooms</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Room Number</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${division.rooms}">
+        <td th:text="${room.number}"></td>
+        <td th:text="${room.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

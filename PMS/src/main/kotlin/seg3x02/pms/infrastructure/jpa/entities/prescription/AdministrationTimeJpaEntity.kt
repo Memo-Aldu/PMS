@@ -21,5 +21,5 @@ class AdministrationTimeJpaEntity(
     val timeOfDay: Date,
 
     @Column(name = "unites_administered", nullable = false)
-    val unitesAdministered: Int,
+    val unitesAdministered: Int
 )

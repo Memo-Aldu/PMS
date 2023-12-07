@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS division
     CONSTRAINT pk_division PRIMARY KEY (division_id)
 );
 
+
 CREATE TABLE IF NOT EXISTS division_patient_admission_requests
 (
     division_id                    UUID NOT NULL,
@@ -95,6 +96,7 @@ CREATE TABLE IF NOT EXISTS room
 ALTER TABLE IF EXISTS room
     DROP CONSTRAINT FK_ROOM_ON_DIVISION;
 
+
 ALTER TABLE IF EXISTS room
     ADD CONSTRAINT FK_ROOM_ON_DIVISION FOREIGN KEY (division_id) REFERENCES division (division_id);
 
@@ -138,6 +140,7 @@ CREATE TABLE IF NOT EXISTS patient
     external_doctor_email        VARCHAR(255),
     CONSTRAINT pk_patient PRIMARY KEY (nas)
 );
+
 
 CREATE TABLE IF NOT EXISTS patient_prescriptions
 (
@@ -243,7 +246,6 @@ ALTER TABLE IF EXISTS patient_discharge
 
 ALTER TABLE IF EXISTS patient_discharge
     ADD CONSTRAINT FK_PATIENT_DISCHARGE_ON_PATIENT_NAS FOREIGN KEY (patient_nas) REFERENCES patient (nas);
-
 
 CREATE TABLE IF NOT EXISTS medication_prescription
 (

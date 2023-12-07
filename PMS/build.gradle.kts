@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    implementation ("org.hibernate.validator:hibernate-validator:7.0.2.Final")
+    implementation ("javax.validation:validation-api:2.0.1.Final")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
