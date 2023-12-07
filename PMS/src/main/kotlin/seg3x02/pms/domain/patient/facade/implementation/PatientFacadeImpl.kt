@@ -99,6 +99,10 @@ class PatientFacadeImpl(
         return null
     }
 
+    override fun getPatientFile(patientNAS: String): Patient? {
+        return patientRepository.findById(patientNAS)
+    }
+
     private fun createAddress(address: AddressRegisterDto): Address {
         return addressFactory.createAddress(address)
     }

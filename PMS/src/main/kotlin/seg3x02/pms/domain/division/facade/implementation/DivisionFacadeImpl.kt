@@ -5,6 +5,7 @@ import seg3x02.pms.application.dtos.queries.PatientAdmissionRequestDto
 import seg3x02.pms.application.dtos.queries.PatientAdmissionToDivisionDto
 import seg3x02.pms.application.services.DomainEventEmitter
 import seg3x02.pms.domain.division.entities.AdmissionRequest
+import seg3x02.pms.domain.division.entities.Division
 import seg3x02.pms.domain.division.entities.Room
 import seg3x02.pms.domain.division.enums.BedStatus
 import seg3x02.pms.domain.division.enums.DivisionStatus
@@ -101,5 +102,9 @@ class DivisionFacadeImpl(
 
     override fun doesAdmissionRequestExist(requestId: UUID): Boolean {
         return patientAdmissionRequestRepository.findById(requestId) != null
+    }
+
+    override fun getDivision(divisionId: UUID): Division? {
+        return divisionRepository.findById(divisionId)
     }
 }

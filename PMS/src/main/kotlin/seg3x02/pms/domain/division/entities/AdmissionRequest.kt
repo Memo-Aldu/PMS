@@ -15,8 +15,8 @@ class AdmissionRequest(
     val divisionId: UUID,
     val rationaleForRequest: String,
     val priorityAssessment: RationalOfRequestEnum,
-    var requestingChargedNurse: Staff,
-    var patient: Patient
+    var requestingChargedNurse: Staff? = null,
+    var patient: Patient? = null
 ) {
 
 }

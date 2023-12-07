@@ -15,4 +15,5 @@ interface DivisionFacade {
     fun getNotCompleteRooms(divisionId: UUID): List<Room>?
     fun doesDivisionExist(divisionId: UUID): Boolean
     fun doesAdmissionRequestExist(requestId: UUID): Boolean
+    fun getDivision(divisionId: UUID): Division?
 }

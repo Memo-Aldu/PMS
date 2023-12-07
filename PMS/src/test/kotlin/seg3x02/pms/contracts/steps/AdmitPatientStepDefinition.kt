@@ -113,7 +113,8 @@ class AdmitPatientStepDefinition: En {
                 patientAdmissionFactory,
                 patientAdmissionRequestRepository,
                 bedRepository,
-                roomRepository
+                roomRepository,
+                eventEmitter
             )
 
             val patientFacade = PatientFacadeImpl(
