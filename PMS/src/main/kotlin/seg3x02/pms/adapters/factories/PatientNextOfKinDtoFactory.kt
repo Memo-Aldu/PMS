@@ -13,6 +13,6 @@ class PatientNextOfKinDtoFactory: PatientNextOfKinFactory {
     private val dtoConverter = Mappers.getMapper(PatientNextToKinRegisterDtoConverter::class.java)
 
     override fun createPatientNextOfKin(patientNextOfKin: PatientNextOfKinRegisterDto): PatientNextOfKin {
-        return dtoConverter.convertDto(patientNextOfKin)
+        return dtoConverter.convertToDomain(patientNextOfKin)
     }
 }

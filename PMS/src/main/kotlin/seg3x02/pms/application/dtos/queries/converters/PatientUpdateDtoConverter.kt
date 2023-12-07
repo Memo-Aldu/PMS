@@ -6,19 +6,9 @@ import org.mapstruct.Mappings
 import seg3x02.pms.application.dtos.queries.PatientUpdateDto
 import seg3x02.pms.domain.patient.entities.patient.Patient
 
-@Mapper
+@Mapper(componentModel = "spring")
 interface PatientUpdateDtoConverter {
-    @Mappings(
-        Mapping(target = "nas", ignore = true),
-        Mapping(target = "firstName", source = "firstName"),
-        Mapping(target = "lastName", source = "lastName"),
-        Mapping(target = "phoneNumber", source = "phoneNumber"),
-        Mapping(target = "dob", source = "dob"),
-        Mapping(target = "gender", source = "gender"),
-        Mapping(target = "maritalStatus", source = "maritalStatus"),
-        Mapping(target = "externalDoctorID", source = "externalDoctorID"),
-        Mapping(target = "address", source = "address"),
-        Mapping(target = "nextOfKin", source = "nextOfKin")
-    )
-    fun convertDto(dto: PatientUpdateDto): Patient
+
+        fun convertDto(patient: Patient): PatientUpdateDto
+        fun convertToDomain(dto: PatientUpdateDto): Patient
 }

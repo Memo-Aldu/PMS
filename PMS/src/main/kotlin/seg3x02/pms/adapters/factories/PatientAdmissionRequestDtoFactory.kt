@@ -12,6 +12,6 @@ import seg3x02.pms.domain.division.factory.PatientAdmissionRequestFactory
 class PatientAdmissionRequestDtoFactory: PatientAdmissionRequestFactory {
     private val dtoConverter = Mappers.getMapper(PatientAdmissionRequestDtoConverter::class.java)
     override fun createPatientAdmissionRequest(patientAdmissionRequestDto: PatientAdmissionRequestDto): AdmissionRequest {
-        return dtoConverter.convertDto(patientAdmissionRequestDto)
+        return dtoConverter.convertToDomain(patientAdmissionRequestDto)
     }
 }

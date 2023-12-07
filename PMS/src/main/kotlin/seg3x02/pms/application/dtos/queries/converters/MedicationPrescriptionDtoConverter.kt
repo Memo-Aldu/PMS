@@ -7,28 +7,12 @@ import org.mapstruct.Mappings
 import seg3x02.pms.application.dtos.queries.AdministrationTimeDto
 import seg3x02.pms.domain.prescription.entities.AdministrationTime
 import seg3x02.pms.domain.prescription.entities.MedicationPrescription
+import java.util.UUID
 
-@Mapper
+@Mapper(componentModel = "spring", uses = [AdministrationTimeDtoConverter::class])
 interface MedicationPrescriptionDtoConverter {
 
-    @Mappings(
-        Mapping(target = "patientNAS", source = "patient.nas"),
-        Mapping(target = "prescribingDoctorId", source = "prescribingDoctorId"),
-        Mapping(target = "drugNumber", source = "drugNumber"),
-        Mapping(target = "drugName", source = "drugName"),
-        Mapping(target = "uniteByDay", source = "uniteByDay"),
-        Mapping(target = "numberOfAdministrationPerDay", source = "numberOfAdministrationPerDay"),
-        Mapping(target = "administrationTimes", source = "administrationTimes"),
-        Mapping(target = "methodOfAdministration", source = "methodOfAdministration"),
-        Mapping(target = "startDate", source = "startDate"),
-        Mapping(target = "endDate", source = "endDate")
-    )
-    fun convertDto(dto: MedicationPrescriptionDto): MedicationPrescription
-
-    @Mappings(
-        Mapping(target = "timeOfDay", source = "timeOfDay"),
-        Mapping(target = "unitesAdministered", source = "unitesAdministered")
-    )
-    fun convertDto(dto: AdministrationTimeDto): AdministrationTime
+    fun convertDto(medicationPrescription: MedicationPrescription): MedicationPrescriptionDto
+    fun convertToDomain(dto: MedicationPrescriptionDto, id: UUID): MedicationPrescription
 
 }

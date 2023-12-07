@@ -8,10 +8,10 @@ import java.security.Principal
 import javax.validation.Valid
 import seg3x02.pms.infrastructure.web.forms.*
 import seg3x02.pms.infrastructure.web.services.DivisionService
-import seg3x02.pms.infrastructure.web.services.PatientService
 import seg3x02.pms.infrastructure.web.services.PrescribeMedicationService
 import seg3x02.pms.infrastructure.web.services.StaffService
 import org.springframework.security.core.context.SecurityContextHolder
+import seg3x02.pms.infrastructure.web.services.PatientService
 
 import java.util.UUID
 

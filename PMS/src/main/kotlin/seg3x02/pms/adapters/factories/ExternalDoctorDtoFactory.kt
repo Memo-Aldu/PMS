@@ -12,6 +12,6 @@ import seg3x02.pms.domain.patient.factory.ExternalDoctorFactory
 class ExternalDoctorDtoFactory: ExternalDoctorFactory {
     private val dtoConverter = Mappers.getMapper(ExternalDoctorDtoConverter::class.java)
     override fun createExternalDoctor(externalDoctor: ExternalDoctorDto): ExternalDoctor {
-        return dtoConverter.convertDto(externalDoctor)
+        return dtoConverter.convertToDomain(externalDoctor)
     }
 }

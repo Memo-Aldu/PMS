@@ -12,6 +12,6 @@ import seg3x02.pms.domain.patient.factory.AddressFactory
 class AddressDtoFactory: AddressFactory {
     private val dtoConverter = Mappers.getMapper(AddressDtoConverter::class.java)
     override fun createAddress(address: AddressRegisterDto): Address {
-        return dtoConverter.convertDto(address)
+        return dtoConverter.convertToDomain(address)
     }
 }

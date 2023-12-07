@@ -12,6 +12,6 @@ import seg3x02.pms.domain.patient.factory.PatientDischargeFactory
 class PatientDischargedDtoFactory: PatientDischargeFactory {
     private val dtoConverter = Mappers.getMapper(PatientDischargeDtoConverter::class.java)
     override fun createPatientDischarge(patientDischargeDto: PatientDischargeDto): PatientDischarge {
-        return dtoConverter.convertDto(patientDischargeDto)
+        return dtoConverter.convertToDomain(patientDischargeDto)
     }
 }

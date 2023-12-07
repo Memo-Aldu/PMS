@@ -15,7 +15,7 @@ class PatientDtoFactory: PatientFactory {
 
 
     override fun createPatient(patient: PatientRegisterDto): Patient {
-        return dtoConverter.convertDto(patient)
+        return dtoConverter.convertToDomain(patient)
     }
 
     override fun createPatient(patientEntity: Patient, patient: PatientUpdateDto): Patient {

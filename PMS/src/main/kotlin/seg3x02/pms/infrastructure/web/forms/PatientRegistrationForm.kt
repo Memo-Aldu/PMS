@@ -24,8 +24,17 @@ class PatientRegistrationForm{
     @NotEmpty(message = "Marital Status is required")
     var maritalStatus: String? = null
 
-    @NotEmpty(message = "External Doctor ID is required")
-    var externalDoctorID: String? = null
+    @NotEmpty(message = "External Doctor first name is required")
+    var externalDoctorFirstName: String? = null
+
+    @NotEmpty(message = "External Doctor last name is required")
+    var externalDoctorLastName: String? = null
+
+    @NotEmpty(message = "External Doctor email is required")
+    var externalDoctorEmail: String? = null
+
+    @NotEmpty(message = "External Doctor phone number is required")
+    var externalDoctorPhoneNumber: String? = null
 
     @NotEmpty(message = "Street Address is required")
     var addressStreet: String? = null

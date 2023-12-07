@@ -20,9 +20,6 @@ abstract class PatientFormDtoConverter {
         Mapping(target = "dob", source = "dob"),
         Mapping(target = "gender", source = "gender"),
         Mapping(target = "maritalStatus", source = "maritalStatus"),
-        Mapping(target = "externalDoctorID", source = "externalDoctorID"),
-        Mapping(target = "address", source = "address"),
-        Mapping(target = "nextOfKin", source = "nextOfKin")
     )
     abstract fun convertPatientFormToDto(patientRegistrationForm: PatientRegistrationForm): PatientRegisterDto
 
@@ -45,15 +42,12 @@ abstract class PatientFormDtoConverter {
         Mapping(target = "dob", source = "dob"),
         Mapping(target = "gender", source = "gender"),
         Mapping(target = "maritalStatus", source = "maritalStatus"),
-        Mapping(target = "externalDoctorID", source = "externalDoctorID"),
-        Mapping(target = "address", source = "address"),
-        Mapping(target = "nextOfKin", source = "nextOfKin")
     )
     abstract fun convertPatientFormToUpdateDto(patientRegistrationForm: PatientRegistrationForm): PatientUpdateDto
 
     @Mappings(
         Mapping(target = "patientNAS", source = "patientNAS"),
-        Mapping(target = "divisionId", source = "divisionId"),
+        Mapping(target = "divisonId", source = "divisionId"),
         Mapping(target = "requestingChargedNurseNAS", source = "requestingChargedNurseNAS"),
         Mapping(target = "approvingChargedNurseNAS", source = "approvingChargedNurseNAS"),
         Mapping(target = "roomId", source = "roomId"),
@@ -61,6 +55,10 @@ abstract class PatientFormDtoConverter {
         Mapping(target = "optionPrivateInsuranceNumber", source = "optionPrivateInsuranceNumber")
     )
     abstract fun convertAdmitPatientFormToDto(admitPatientForm: AdmitPatientForm): PatientAdmissionToDivisionDto
+
+    fun map(value: String): Date {
+        return Date(value.toLong())
+    }
 
     @Mappings(
         Mapping(target = "patientNAS", source = "patientNAS"),

@@ -9,14 +9,9 @@ import seg3x02.pms.domain.patient.entities.patient.ExternalDoctor
 import seg3x02.pms.domain.prescription.entities.AdministrationTime
 import seg3x02.pms.domain.prescription.entities.MedicationPrescription
 
-@Mapper
+@Mapper(componentModel = "spring")
 interface ExternalDoctorDtoConverter {
 
-    @Mappings(
-        Mapping(target = "firstName", ignore = true),
-        Mapping(target = "lastName", ignore = true),
-        Mapping(target = "phoneNumber", ignore = true),
-        Mapping(target = "email", ignore = true)
-    )
-    fun convertDto(dto: ExternalDoctorDto): ExternalDoctor
+        fun convertDto(externalDoctor: ExternalDoctor): ExternalDoctorDto
+        fun convertToDomain(dto: ExternalDoctorDto): ExternalDoctor
 }
